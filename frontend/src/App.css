@@ -1,0 +1,57 @@
+* {
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  background-color: transparent;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.button {
+  padding: 10px 20px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.5s;
+}
+
+.button-outline {
+  border: 1px solid white;  
+}
+
+.button-outline:hover {
+  background-color: white;
+  color: rgb(0, 0, 0);  
+}
+
+.button-contain {
+  background-color: rgb(0, 0, 0);
+}
+
+.button-contain:hover {
+  background-color: white;
+  color: rgb(0, 0, 0);
+}
+.redColor {
+  color: red !important;
+}
+
+.greenColor {
+  color: green !important;
+}

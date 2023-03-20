@@ -1,0 +1,112 @@
+.orderDetailsPage {
+  background-color: white;
+}
+
+.orderDetailsContainer > h1 {
+  font: 300 20px "Roboto";
+  color: #0084d6;
+}
+
+.orderDetailsContainer {
+  padding: 40px 80px;
+  padding-bottom: 0%;
+}
+
+.orderDetailsContainer > p {
+  font: 400 18px "Roboto";
+  margin: 10px 0px;
+}
+
+.orderDetailsContainerBox,
+.orderDetailsCartItemsContainer {
+  margin: 10px 0px;
+}
+
+.orderDetailsContainerBox > div {
+  display: flex;
+  margin: 8px 0;
+}
+
+.orderDetailsContainerBox > div > p {
+  font: 400 14px "Roboto";
+  color: black;
+}
+.orderDetailsContainerBox > div > span {
+  margin: 0 5px;
+  font: 100 14px "Roboto";
+  color: #575757;
+}
+
+.orderDetailsCartItems > p {
+  font: 400 18px "Roboto";
+}
+
+.orderDetailsCartItems {
+  padding: 20px 80px;
+  border-top: 1px solid rgba(0, 0, 0, 0.164);
+}
+
+.orderDetailsCartItemsContainer > div {
+  display: flex;
+  font: 400 14px "Roboto";
+  align-items: center;
+  margin: 10px 0;
+}
+
+.orderDetailsCartItemsContainer > div > img {
+  width: 30px;
+}
+
+.orderDetailsCartItemsContainer > div > a {
+  color: #575757;
+  margin: 0 20px;
+  width: 60%;
+  text-decoration: none;
+}
+
+.orderDetailsCartItemsContainer > div > span {
+  font: 100 14px "Roboto";
+  color: #5e5e5e;
+}
+
+@media screen and (max-width: 600px) {
+  .orderDetailsContainer {
+    padding: 20px 30px;
+  }
+  .orderDetailsContainer > p {
+    font: 400 18px "Roboto";
+  }
+
+  .orderDetailsContainer > h1 {
+    font: 300 16px "Roboto";
+  }
+
+  .orderDetailsContainerBox > div > p {
+    font: 400 12px "Roboto";
+  }
+  .orderDetailsContainerBox > div > span {
+    font: 100 12px "Roboto";
+  }
+
+  .orderDetailsCartItems {
+    padding: 10px 30px;
+  }
+
+  .orderDetailsCartItems > p {
+    font: 400 16px "Roboto";
+  }
+
+  .orderDetailsCartItemsContainer > div {
+    font: 400 12px "Roboto";
+    margin: 5px 0;
+  }
+
+  .orderDetailsCartItemsContainer > div > a {
+    margin: 0 10px;
+    width: 40%;
+  }
+
+  .orderDetailsCartItemsContainer > div > span {
+    font: 100 12px "Roboto";
+  }
+}

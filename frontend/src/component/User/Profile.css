@@ -1,0 +1,130 @@
+.profileContainer {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+    max-width: 100%;
+}
+
+.profileContainer > div {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.profileContainer > div:first-child > h1 {
+    color: rgba(0, 0, 0, 0.535);
+    font: 500 26px "Roboto";
+    transform: translateY(-10px);
+}
+
+.profileContainer > div:first-child > img {
+    width: 200px;
+    border-radius: 100%;
+    transition: all 0.5s;
+}
+
+.profileContainer > div:first-child > img:hover {
+    transform: scale(1.05);
+}
+
+.profileContainer > div:first-child > a {
+    border: none;
+    font: 400 18px "Roboto";
+    background-color: #80828550;
+    color: black;
+    text-align: center;
+    transition: all 0.5s;
+    margin: 10px 20px; 
+    padding: 10px 40px;
+    text-decoration: none;
+}
+
+.profileContainer > div:first-child > a:hover {
+    background-color: #0080d4;
+}
+
+.profileContainer > div:last-child {
+    justify-content: space-evenly;
+    box-sizing: border-box;
+    padding: 50px 20px;
+    align-items: flex-start;
+}
+
+.profileContainer > div:last-child > div > h4 {
+    color: black;
+    font: 500 18px "Roboto";
+}
+
+.profileContainer > div:last-child > div > p {
+    color: rgba(0, 0, 0, 0.415);
+    font: 400 18px cursive;
+    margin: 5px 0px;
+}
+
+.profileContainer > div:last-child > div:last-child {
+    display: flex;
+    flex-direction: column;
+}
+
+.profileContainer > div:last-child > div:last-child > a {
+    border: none;
+    text-decoration: none;
+    background-color: rgb(68, 68, 68);
+    text-align: center;
+    padding: 8px 40px;
+    color: white;
+    font: 400 18px "Roboto";
+    margin: 8px 0;
+    transition: all 0.5s;
+}
+
+.profileContainer > div:last-child > div:last-child > a:hover {
+    background-color: rgb(31, 31, 31);
+}
+
+@media screen and (max-width: 600px) {
+    .profileContainer {
+        flex-direction: column;
+    }
+
+    .profileContainer > div:first-child > h1 {
+        font: 500 22px "Roboto";
+        transform: translateY(8px);
+    }
+
+    .profileContainer > div:first-child > img {
+        width: 150px;
+    }
+
+    .profileContainer > div:first-child > a {
+        font: 400 14px "Roboto";
+        margin: 6px 20px;
+        padding: 8px 20px;
+    }
+
+    .profileContainer > div:last-child {
+        padding: 0px 10px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .profileContainer > div:last-child > div > h4 {
+        font: 500 14px "Roboto";
+    }
+
+    .profileContainer > div:last-child > div > p {
+        font: 500 14px cursive;
+        margin: 3px 0px;
+    }
+
+    .profileContainer > div:last-child > div:last-child > a {
+        font: 400 16px "Roboto";
+        padding: 6px 20px;
+        margin:  6px 0px;
+    }
+}

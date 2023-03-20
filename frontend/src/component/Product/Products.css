@@ -1,0 +1,13 @@
+.products-heading {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.171);
+    color: rgba(0, 0, 0, 0.400);
+    padding-inline: 2rem;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 5vmax;
+    justify-content: center;
+    min-height: 40vh;
+}
