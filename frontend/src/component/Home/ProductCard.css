@@ -1,0 +1,14 @@
+.card {
+  width: 280px;
+  transition: all 0.3s;
+  background-color: transparent !important;
+}
+
+.card-img-top {
+  height: 280px;
+  object-fit: cover;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}

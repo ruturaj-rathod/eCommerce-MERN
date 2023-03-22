@@ -1,13 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  Box,
-  Rating,
-} from "@mui/material";
+import { Rating } from "@mui/material";
+import "./ProductCard.css";
 
 const ProductCard = ({ product }) => {
   const options = {
@@ -17,42 +11,21 @@ const ProductCard = ({ product }) => {
   };
   return (
     <>
-      <Link className="proudct-card" to={`/product/${product._id}`}>
-        <Card
-          sx={{
-            backgroundColor: '#80828520',
-            boxShadow: 'unset',
-            width: 250,
-            transition: "all 0.5s",
-            "&:hover": { transform: "scale(1.1)" },
-          }}
-        >
-          <CardMedia
-            sx={{ height: 300 }}
-            image={product.images[0].url}
-            title={product.name}
+      <div className="card my-3 border-0 rounded-0">
+        <Link to={`/product/${product._id}`} className="text-decoration-none">
+          <img
+            className="card-img-top  rounded-0"
+            src={product.images[0].url}
+            alt={product.name}
           />
-          <CardContent>
-            <Typography gutterBottom sx={{font: '700 16px lato'}}component="div">
-              {product.name}
-            </Typography>
-            <Box component="div" >
-              <Rating {...options} />
-              <Typography variant="caption" component="div" px={1}>
-                ({product.numOfReviews} Review)
-              </Typography>
-            </Box>
-            <Box
-              component="div"
-              my={1}
-              px={1}
-              sx={{ font: '700 12px lato' }}
-            >
-              {`₹${product.price}`}
-            </Box>
-          </CardContent>
-        </Card>
-      </Link>
+          <div className="card-body">
+            <h5 className="mb-1 text-black">{product.name}</h5>
+            <p className="mb-1 fw-lighter text-muted">{product.category}</p>
+            <p className="ff-lato mb-0 fw-bolder">{`₹${product.price}`}</p>
+            <Rating {...options} />
+          </div>
+        </Link>
+      </div>
     </>
   );
 };

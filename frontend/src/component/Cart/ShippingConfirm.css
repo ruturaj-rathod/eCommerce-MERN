@@ -1,8 +1,8 @@
 .confirmOrderPage {
-  height: 80vh;
+  min-height: 80vh;
   background-color: white;
   display: grid;
-  margin-top: 40px;
+  padding-block: 40px;
   grid-template-columns: 6fr 3fr;
 }
 

@@ -1,6 +1,5 @@
 {
-  "homepage": "https://ecommerce-shop-08f76.vercel.app",
-  "name": "ecommerce-shop-08f76",
+  "name": "frontend",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:4000",
@@ -17,6 +16,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
+    "bootstrap": "^5.2.3",
     "chart.js": "^3.5.1",
     "country-state-city": "^3.0.1",
     "react": "^17.0.2",

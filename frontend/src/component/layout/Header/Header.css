@@ -1,8 +1,14 @@
-.brand-logo {
-    font: 500 24px 'Lato' !important;
-    display: "flex";
-    cursor: "pointer";
-    flex-grow: 1; 
+.navbar-brand {
+    font-family:'Lato' !important;
+}
+
+.nav-link {
+    font-weight: 500 !important;
+    margin-inline: 0.7rem;
+}
+
+.navbar-brand:hover, .nav-link:hover, .nav-link:active {
+    color: #0084d6 !important;
 }
 
 .speedDial {
@@ -14,48 +20,4 @@
 .speedDialIcon {
     width: 100%;
     border-radius: 100%;
-}
-
-.sx-nav-link {
-    text-decoration: none;
-    color: black;
-}
-
-.nav-link {
-    text-decoration: none;
-    color: black;
-    margin-left: 1rem;
-}
-
-.nav-link:hover {
-    border-bottom: 1px solid #0084d6;
-}
-
-/* Search, Login and Cart Icon container */
-.icon-container {
-    display: "flex";
-    flex-grow: 1;
-    text-align: end;
-    margin-right: 1rem;
-}
-
-
-@media screen and (max-width: 600px) {
-    .brand-logo {
-        text-align: center;
-        font-size: 18px !important;
-    }
-    .nav-link {
-        margin-left: 0.5rem;
-    }
-
-    /* Icon Container */
-    .icon-container {
-        margin: 0;
-        flex-grow: unset;
-    }
-    
-    .icon-container svg {
-        font-size: 1.2rem;
-    }
 }

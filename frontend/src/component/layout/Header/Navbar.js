@@ -1,9 +1,4 @@
 import {
-  AppBar,
-  Toolbar,
-  CssBaseline,
-  Typography,
-  Box,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
@@ -17,49 +12,68 @@ function Navbar() {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <AppBar
-    position="relative"
-      style={{
-        backgroundColor: "#80828520",
-        boxShadow: "unset",
-      }}
-    >
-      <CssBaseline />
-      <Toolbar>
-        {isMobile ? <DrawerComponent /> : ""}
-        <Typography variant="h5" color="black" className="brand-logo">
+    <div className="container d-flex align-items-center navbar">
+      {/* Expand Menu for mobile view */}
+      {isMobile ? (
+        <div>
+          <DrawerComponent />
+        </div>
+      ) : (
+        ""
+      )}
+      {/* Brand Name */}
+      {isMobile ? (
+        <div className="flex-grow-1 d-flex justify-content-center">
+        <Link to="/" className="navbar-brand">
           Ecommerce
-        </Typography>
-
-        {!isMobile ? (
-          <div>
-            <Link to="/" className="nav-link">
-              Home
-            </Link>
-            <Link to="/products" className="nav-link">
-              Product
-            </Link>
-            <Link to="/contact" className="nav-link">
-              contact
-            </Link>
-            <Link to="/faq" className="nav-link">
-              About
-            </Link>
-          </div>
-        ) : (
-          ""
-        )}
-
-        <Box className="icon-container">
-          <Link to="/cart" className="nav-link">
-            <ShoppingCart size="large" />
-          </Link>
-          <Link to="/login" className="nav-link">
-            <PersonOutline size="large" />
-          </Link>
-        </Box>
-      </Toolbar>
-    </AppBar>
+        </Link>
+      </div>
+      ) : (
+      <div>
+        <Link to="/" className="navbar-brand">
+          Ecommerce
+        </Link>
+      </div>
+      )}
+      {/* Navbar Links */}
+      {!isMobile ? (
+        <div className="flex-grow-1">
+          <ul class="navbar-nav d-flex flex-row justify-content-center">
+            <li class="nav-item">
+              <Link to="/" class="nav-link">
+                Home
+              </Link>
+            </li>
+            <li class="nav-item">
+              <Link to="/products" class="nav-link">
+                Product
+              </Link>
+            </li>
+            <li class="nav-item">
+              <Link to="/contact" class="nav-link">
+                Contact
+              </Link>
+            </li>
+            <li class="nav-item">
+              <Link to="/about" class="nav-link">
+                About
+              </Link>
+            </li>
+          </ul>
+        </div>
+      ) : (
+        ""
+      )}
+      {/* Icon of Right Side */}
+      <div className="d-flex me-2 me-sx-0">
+        <Link to="/cart" className="nav-link">
+          <ShoppingCart fontSize="small"/>
+        </Link>
+        <Link to="/login" className="nav-link">
+          <PersonOutline fontSize="small" />
+        </Link>
+      </div>
+    </div>
   );
 }
 

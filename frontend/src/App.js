@@ -7,7 +7,6 @@ import Footer from "./component/layout/Footer/Footer.js";
 import ProductDetails from "./component/Product/ProductDetails.js";
 import Products from "./component/Product/Products.js";
 import Navbar from "./component/layout/Header/Navbar";
-import Search from "./component/Product/Search.js";
 import LoginSignUp from "./component/User/LoginSignUp";
 import store from "./store";
 import { loadUser } from "./actions/userAction";
@@ -38,6 +37,8 @@ import UpdateUser from "./component/Admin/UpdateUser";
 import ProductReviews from "./component/Admin/ProductReviews";
 import { useSelector } from "react-redux";
 import UserOptions from "./component/layout/Header/UserOptions";
+import AboutUs from "./component/layout/AboutUs";
+import Contact from "./component/layout/Contact";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState();
@@ -60,14 +61,13 @@ function App() {
   }, []);
 
   return (
-    <Router basename="/">
+    <Router>
       {isAuthenticated ? (<UserOptions user={user}/>): ""}
       <Navbar />
       <Route exact path="/" component={Home} />
       <Route exact path="/product/:id" component={ProductDetails} />
       <Route exact path="/products" component={Products} />
       <Route path="/products/:keyword" component={Products} />
-      <Route exact path="/search" component={Search} />
       <Route exact path="/login" component={LoginSignUp} />
       <ProtectedRoute exact path="/account" component={Profile} />
       <ProtectedRoute exact path="/me/update" component={UpdatedProfile} />
@@ -98,6 +98,9 @@ function App() {
       <ProtectedRoute isAdmin={true} exact path="/admin/users" component={UsersList} />
       <ProtectedRoute isAdmin={true} exact path="/admin/user/:id" component={UpdateUser} />
       <ProtectedRoute isAdmin={true} exact path="/admin/reviews" component={ProductReviews} />
+
+      <Route exact path="/about" component={AboutUs} />
+      <Route exact path="/contact" component={Contact} />
       <Footer />
     </Router>
     

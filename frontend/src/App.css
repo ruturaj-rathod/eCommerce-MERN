@@ -19,6 +19,22 @@ input::-webkit-outer-spin-button {
   margin: 0;
 }
 
+.qty-btn {
+  border: none;
+  background-color: rgba(0, 0, 0, 0.555);
+  width: 30px;
+  text-align: center;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  transition: all 0.5s;
+}
+
+.qty-btn {
+  background-color: rgba(0, 0, 0, 0.885);
+}
+
 
 input[type="number"] {
   -moz-appearance: textfield;
@@ -54,4 +70,12 @@ input[type="number"] {
 
 .greenColor {
   color: green !important;
+}
+
+.h-custome {
+  min-height: 100vh !important;
+}
+
+.ff-lato {
+  font-family: 'Lato', sans-serif;
 }

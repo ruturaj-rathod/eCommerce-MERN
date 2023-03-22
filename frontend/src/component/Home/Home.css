@@ -63,26 +63,6 @@
   color: white;
 }
 
-.homeHeading {
-  width: 20vmax;
-  text-align: center;
-  font-family: "Roboto";
-  font-size: 1.4vmax;
-  border-bottom: 1px solid rgba(21, 21, 21, 0.5);
-  padding: 1vmax;
-  margin: 5vmax auto;
-  color: rgba(0, 0, 0, 0.7);
-}
-
-.container {
-  display: flex;
-  margin: 2vmax auto;
-  width: 90%;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 100%;
-}
-
 .menu-icon > svg {
   color: black;
 }

@@ -12,7 +12,7 @@ const Success = () => {
 
   useEffect(() => {
     dispatch(removeAllItemsFromCart());
-  }, []);
+  }, [dispatch]);
   
   return (
     <div className="orderSuccess">

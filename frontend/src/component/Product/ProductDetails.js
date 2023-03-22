@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Carousel from "react-material-ui-carousel";
-import "./ProductDetails.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
   clearErrors,
@@ -21,6 +20,7 @@ import {
 } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
+import "./ProductDetails.css";
 
 const ProductDetails = ({ match }) => {
   const alert = useAlert();
@@ -55,6 +55,10 @@ const ProductDetails = ({ match }) => {
   };
 
   const addToCartHandler = () => {
+    if (product.stock <= 0) {
+      alert.show("Product is out of stock");
+      return;
+    }
     dispatch(addItemsToCart(match.params.id, quantity));
     alert.success("Item added to cart");
   };
@@ -84,7 +88,7 @@ const ProductDetails = ({ match }) => {
     }
     if (success) {
       alert.success("Review submitted successfully");
-      dispatch({type: NEW_REVIEW_RESET});
+      dispatch({ type: NEW_REVIEW_RESET });
     }
     dispatch(getProductDetails(match.params.id));
   }, [dispatch, match.params.id, error, alert, reviewError, success]);
@@ -102,68 +106,104 @@ const ProductDetails = ({ match }) => {
       ) : (
         <Fragment>
           <MetaData title="PRODUCT DETAILS" />
-          <div className="ProductDetails">
-            <div>
-              <Carousel>
-                {product?.images &&
-                  product.images?.map((item, i) => (
-                    <img
-                      src={item.url}
-                      className="CarouselImage"
-                      key={item.url}
-                      alt={`${i} Slide`}
-                    />
-                  ))}
-              </Carousel>
-            </div>
-            <div>
-              <div className="detailsBlock-1">
-                <h2>{product?.name}</h2>
-                <p>Product # {product?._id}</p>
-              </div>
-              <div className="detailsBlock-2">
-              <Rating {...options} />
-                <span>({product?.numOfReviews} Reviews)</span>
-              </div>
-              <div className="detailseBlock-3">
-                <h1>{`$ ${product?.price}`}</h1>
-                <div className="detailsBlock-3-1">
-                  <div className="detailsBlock-3-1-1">
-                    <button onClick={decreaseQuantity}>-</button>
-                    <input type="number" value={quantity} readOnly />
-                    <button onClick={increaseQuantity}>+</button>
+          <div className="bg-light py-5 h-100">
+            <div className="container">
+              <div className="d-flex flex-column flex-md-row">
+                <div className="text-center">
+                  <Carousel>
+                    {product?.images &&
+                      product.images?.map((item, i) => (
+                        <img
+                          src={item.url}
+                          className="CarouselImage"
+                          key={item.url}
+                          alt={`${i} Slide`}
+                        />
+                      ))}
+                  </Carousel>
+                </div>
+                <div className="mx-auto ps-3 text-center text-md-start">
+                  <h6 className="fs-3 text-secondary">{product?.name}</h6>
+                  <p className="fs-6 text-muted fst-italic">
+                    {product?.category}
+                  </p>
+                  <div className="d-flex align-items-center border-top border-bottom py-3">
+                    <Rating {...options} />
+                    <span>({product?.numOfReviews} Reviews)</span>
                   </div>
-                  <button
-                    disabled={product?.stock < 1 ? true : false}
+                  <h6 className="fs-3 my-3">{`₹${product?.price}`}</h6>
+                  <div className="mb-3">
+                    <button className="qty-btn" onClick={decreaseQuantity}>
+                      -
+                    </button>
+                    <span className="fs-4 mx-2">{quantity}</span>
+                    <button className="qty-btn" onClick={increaseQuantity}>
+                      +
+                    </button>
+                  </div>
+                  <p
+                    className={
+                      product?.stock < 1
+                        ? "text-danger fw-bolder"
+                        : "text-success fw-bolder"
+                    }
+                  >
+                    {product?.stock < 1 ? "Out of stock" : "Instock"}
+                  </p>
+                  <Button
+                    variant="contained"
+                    className="bg-primary text-white mb-3"
                     onClick={addToCartHandler}
                   >
-                    Add To Cart
-                  </button>
+                    Add to Cart
+                  </Button>
                 </div>
-                <p className="ProductStock">
-                  Status:
-                  <b className={product?.stock < 1 ? "redColor" : "greenColor"}>
-                    {product?.stock < 1 ? "Out of stock" : "Instock"}
-                  </b>
-                </p>
+              </div>
+              {/* Product Description */}
+              <div className="mt-5 text-center">
+                <div>
+                  <p className="fs-5 fw-bolder text-muted">Description</p>
+                  <p>{product?.description}</p>
+                </div>
               </div>
 
-              <div className="detailsBlock-4">
-                Description : <p>{product?.description}</p>
+              {/* Reviews Container */}
+              <div className="my-5">
+                <div className="d-flex justify-content-center">
+                  <h3 className="px-3 pb-2 border-bottom">
+                    Reviews({product?.numOfReviews})
+                  </h3>
+                </div>
+                <div className="d-flex justify-content-center">
+                  <Button
+                    variant="contained"
+                    className="bg-secondary text-white"
+                    onClick={submitReviewToggle}
+                  >
+                    Submit Review
+                  </Button>
+                </div>
+                {product?.reviews[0] ? (
+                  <div className="d-flex review-container">
+                    {product?.reviews.map((review, index) => (
+                      <ReviewCard key={index} review={review} />
+                    ))}
+                  </div>
+                ) : (
+                  <p className="noReviews mt-3">No Reviews Yet</p>
+                )}
               </div>
-              <button onClick={submitReviewToggle} className="submitReview">
-                Submit Review
-              </button>
             </div>
           </div>
 
+          {/* Review Dialog Box */}
           <Dialog
             aria-labelledby="simple-dialog-title"
             open={open}
             onClose={submitReviewToggle}
           >
             <DialogTitle>Submit Review</DialogTitle>
-            <DialogContent className="submitDialog">
+            <DialogContent className="d-flex flex-column">
               <Rating
                 onChange={(e) => setRating(e.target.value)}
                 value={rating}
@@ -186,17 +226,6 @@ const ProductDetails = ({ match }) => {
               </Button>
             </DialogActions>
           </Dialog>
-
-          <h3 className="reviewsHeading">REVIEWS</h3>
-          {product?.reviews[0] ? (
-            <div className="reviews">
-              {product?.reviews.map((review, index) => (
-                <ReviewCard key={index} review={review} />
-              ))}
-            </div>
-          ) : (
-            <p className="noReviews">No Revies Yet</p>
-          )}
         </Fragment>
       )}
     </Fragment>
