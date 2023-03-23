@@ -1,5 +1,6 @@
+import { useState, useEffect } from "react";
 import { Delete } from "@material-ui/icons";
-import { Button } from "@mui/material";
+import { Button, Dialog, DialogTitle, DialogActions } from "@mui/material";
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemsToCart, removeItemsFromCart } from "../../actions/cartAction";
@@ -7,6 +8,9 @@ import "./Cart.css";
 import NoCartItem from "./NoCartItem";
 
 const Cart = ({ history }) => {
+  const [removeDialog, setRemoveDialog] = useState(false);
+  const [removeConfirm, setRemoveConfirm] = useState("");
+  const [removeId, setRemoveId] = useState(null);
   const disptach = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -27,12 +31,31 @@ const Cart = ({ history }) => {
   };
 
   const removeItem = (id) => {
-    disptach(removeItemsFromCart(id));
+    setRemoveDialog(true);
+    setRemoveId(id);
   };
+
+  const handleRemoveConfirm = (log) => {
+      if(log === "yes") {
+        setRemoveConfirm("yes");
+      } else {
+        setRemoveConfirm("no");
+        setRemoveId(null);
+      }
+      setRemoveDialog(false);
+  }
 
   const checkOutHandler = () => {
     history.push("/login?redirect=shipping");
   };
+
+  useEffect(() => {
+    if(removeConfirm === "yes") {
+      disptach(removeItemsFromCart(removeId));
+      setRemoveId(null);
+      setRemoveConfirm("");
+    }
+  }, [disptach, removeConfirm, removeId]);
 
   return (
     <Fragment>
@@ -154,6 +177,22 @@ const Cart = ({ history }) => {
               </div>
             </div>
           </div>
+
+          {/* Dialog Box when item is removed to confirm */}
+          <Dialog
+            open={removeDialog}
+            onClose={() => setRemoveDialog(false)}
+            aria-labelledby="remove-dialog-title"
+            aria-controls="remove-dialog-controls"
+          >
+            <DialogTitle id="remove-dialog-title">
+              Are you sure want to remove it from cart?
+            </DialogTitle>
+            <DialogActions id="remove-dialog-controls">
+              <Button onClick={() => handleRemoveConfirm("yes")}>Yes</Button>
+              <Button onClick={() => handleRemoveConfirm("no")}>No</Button>
+            </DialogActions>
+          </Dialog>
         </Fragment>
       )}
     </Fragment>

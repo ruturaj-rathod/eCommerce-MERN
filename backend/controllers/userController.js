@@ -9,14 +9,20 @@ const cloudnary = require("cloudinary");
 //Register a user
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     let myCloud = "";
-    if (req.body.avatar) {
+    if (req.body.avatar !== "/static/media/Profile.697fdcd2.png") {
         myCloud = await cloudnary.v2.uploader.upload(req.body.avatar, {
             folder: "avatars",
             width: 150,
             crop: "scale"
         }
         )
+    } else {
+        myCloud = {
+            public_id: process.env.AVATAR_ID,
+            secure_url: process.env.AVATAR_URL
+        }
     }
+
     const { name, email, password } = req.body;
 
     const user = await User.create({
@@ -29,9 +35,15 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
         }
     });
 
-    const token = user.getJWTToken();
-
     sendToken(user, 201, res);
+
+    const message = "Welcome to Ecommerce\nHappy shopping"
+    await sendEmail({
+        email: user.email,
+        subject: `Welcome to Ecommerce`,
+        message
+    });
+
 });
 
 //Login user
@@ -57,6 +69,12 @@ exports.logInUser = catchAsyncErrors(async (req, res, next) => {
     }
 
     sendToken(user, 200, res);
+    const message = "Welcome Back To Ecommerce\nYou Login to device\nIf not you change your password\nelse simply ignore it"
+    await sendEmail({
+        email: user.email,
+        subject: `Login Alert`,
+        message
+    });
 });
 
 //Logout User
@@ -183,7 +201,9 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
     if (req.body.avatar !== "/static/media/Profile.697fdcd2.png") {
         const user = await User.findById(req.user.id);
         const imageId = user.avatar.public_id;
-        await cloudnary.v2.uploader.destroy(imageId);
+        if (imageId === "Profile_pwl0i1") {
+            await cloudnary.v2.uploader.destroy(imageId);
+        }
         const myCloud = await cloudnary.v2.uploader.upload(req.body.avatar, {
             folder: "avatars",
             width: 150,
