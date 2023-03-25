@@ -6,6 +6,11 @@ import { useSelector, useDispatch } from "react-redux";
 import Loader from "../layout/Loader/Loader";
 import { useAlert } from "react-alert";
 import "./Home.css";
+import Offer from "./Offer";
+import GlobeImage from "./../../images/globe-free-img.png";
+import LockImage from "./../../images/lock-free-img.png";
+import QualityImage from "./../../images/quality-free-img.png";
+import TagImage from "./../../images/tag-free-img.png";
 
 const Home = () => {
   const alert = useAlert();
@@ -41,6 +46,8 @@ const Home = () => {
           </div>
         </div>
       </div>
+      {/* Offer layer*/}
+      <Offer />
       {/* Popular Product List */}
       <div className="bg-light">
         <div className="container py-5">
@@ -64,6 +71,61 @@ const Home = () => {
               </div>
             </Fragment>
           )}
+        </div>
+      </div>
+      {/* Why choose us */}
+      <div className="d-flex flex-column flex-md-row text-center mt-4">
+        <div className="px-2 py-2 px-sm-5 py-md-4 px-md-4">
+          <img
+            src={GlobeImage}
+            className="img-thumbnail border-0 mb-3"
+            alt="world wide shipping"
+            width="80px"
+          />
+          <h5>WorldWid Shipping</h5>
+          <p className="">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
+            tempore praesentium nemo, fuga suscipit vero.
+          </p>
+        </div>
+        <div className="px-2 py-2 px-sm-5 py-md-4 px-md-4 ">
+          <img
+            src={QualityImage}
+            className="img-thumbnail border-0 mb-3"
+            alt="Best Quality"
+            width="80px"
+          />
+          <h5>Best Quality</h5>
+          <p className="">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
+            tempore praesentium nemo, fuga suscipit vero.
+          </p>
+        </div>
+        <div className="px-2 py-2 px-sm-5 py-md-4 px-md-4">
+          <img
+            src={TagImage}
+            className="img-thumbnail border-0 mb-3"
+            alt="Best offers"
+            width="80px"
+          />
+          <h5>Best Offers</h5>
+          <p className="">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
+            tempore praesentium nemo, fuga suscipit vero.
+          </p>
+        </div>
+        <div className="px-2 py-2 px-sm-5 py-md-4 px-md-4">
+          <img
+            src={LockImage}
+            className="img-thumbnail border-0 mb-3"
+            alt="Secure Payment"
+            width="80px"
+          />
+          <h5>Secure Payment</h5>
+          <p className="">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
+            tempore praesentium nemo, fuga suscipit vero.
+          </p>
         </div>
       </div>
     </Fragment>

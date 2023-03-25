@@ -71,7 +71,7 @@ export const productReducer = (state = { products: [] }, action) => {
     }
 };
 
-//New Product 
+//New Product
 export const newProductReducer = (state = { product: {} }, action) => {
     switch (action.type) {
         case NEW_PRODUCT_REQUEST:
@@ -121,7 +121,8 @@ export const productDetailsReducer = (state = { products: [] }, action) => {
         case PRODUCT_DETAILS_SUCCESS:
             return {
                 loading: false,
-                product: action.payload
+                product: action.payload.product,
+                products: action.payload.products
             };
         case PRODUCT_DETAILS_FAIL:
             return {
@@ -206,7 +207,7 @@ export const newReviewReducer = (state = {}, action) => {
 };
 
 //All reviews 
-export const productReviewsReducer = (state = { reviews: []}, action) => {
+export const productReviewsReducer = (state = { reviews: [] }, action) => {
     switch (action.type) {
         case ALL_REVIEWS_REQUEST:
             return {

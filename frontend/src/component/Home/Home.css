@@ -67,12 +67,50 @@
   color: black;
 }
 
+.bg-limit {
+  height: 400px;
+  object-fit: fill;
+}
+
+/* Offer Card */
+.h-300, .bg-height {
+  height: 400px;
+}
+
+.bg-image1 {
+  background-image: url('./../../images/men-fashion.jpg');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.bg-image2 {
+  background-image: url('./../../images/footwear.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg-image3 {
+  background-image: url('./../../images/mobile.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 /* product styling */
 .proudct-card {
   text-decoration: none;
   transition: all 0.5s;
   margin: 2vmax;
   display: flex;
+}
+
+@media screen and (max-width: 768px) {
+  .h-300 {
+    height: 400px;
+  }
+
+  .bg-height {
+    height: auto;
+  }
 }
 
 @media screen and (max-width: 900px) {
@@ -122,6 +160,11 @@
   }
   .banner-text > h3 {
     font-size: 12px;
+  }
+
+  .bg-limit {
+    width: 100vw;
+    object-fit: contain;
   }
 }
 

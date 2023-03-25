@@ -27,7 +27,7 @@ import {
     DELETE_REVIEW_REQUEST,
     DELETE_REVIEW_SUCCESS,
     DELETE_REVIEW_FAIL,
-    EDIT_PRODUCT_FAIL
+    EDIT_PRODUCT_FAIL,
 } from "../constants/productConstants";
 
 export const getProduct = (keyword = "", currentPage = 1, price = [0, 100000], category = "", rating = 0) => async (dispatch) => {
@@ -36,7 +36,7 @@ export const getProduct = (keyword = "", currentPage = 1, price = [0, 100000], c
 
         let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${rating}`;
 
-        if(category) {
+        if (category) {
             link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${rating}`;
         }
         axios.get(link)
@@ -66,7 +66,7 @@ export const createProduct = (productData) => async (dispatch) => {
     try {
         dispatch({ type: NEW_PRODUCT_REQUEST });
 
-        const config = { headers: {"Content-Type": "multipart/form-data"}}
+        const config = { headers: { "Content-Type": "multipart/form-data" } }
 
         axios.post(`/api/v1/admin/product/new`, productData, config)
             .then((response) => {
@@ -121,8 +121,8 @@ export const deleteProduct = (id) => async (dispatch) => {
 export const updateProduct = (id, productData) => async (dispatch) => {
     try {
         dispatch({ type: EDIT_PRODUCT_REQUEST });
-        
-        const config = { headers: {"Content-Type": "multipart/form-data"}}
+
+        const config = { headers: { "Content-Type": "multipart/form-data" } }
 
         axios.put(`/api/v1/admin/product/${id}`, productData, config)
             .then((response) => {
@@ -154,7 +154,7 @@ export const getProductDetails = (id) => async (dispatch) => {
             .then((response) => {
                 dispatch({
                     type: PRODUCT_DETAILS_SUCCESS,
-                    payload: response.data.product
+                    payload: response.data
                 })
             })
             .catch((error) => {
@@ -177,7 +177,7 @@ export const newReview = (reviewData) => async (dispatch) => {
     try {
         dispatch({ type: NEW_REVIEW_REQUEST });
 
-        const config = { headers: {"Content-Type": "application/json"}}
+        const config = { headers: { "Content-Type": "application/json" } }
 
         axios.put(`/api/v1/review`, reviewData, config)
             .then((response) => {
@@ -206,7 +206,7 @@ export const newReview = (reviewData) => async (dispatch) => {
 export const getAllReviews = (id) => async (dispatch) => {
     try {
         dispatch({ type: ALL_REVIEWS_REQUEST });
-        
+
         axios.get(`/api/v1/reviews?id=${id}`)
             .then((response) => {
                 dispatch({

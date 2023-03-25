@@ -38,24 +38,24 @@ function Navbar() {
       {/* Navbar Links */}
       {!isMobile ? (
         <div className="flex-grow-1">
-          <ul class="navbar-nav d-flex flex-row justify-content-center">
-            <li class="nav-item">
-              <Link to="/" class="nav-link">
+          <ul className="navbar-nav d-flex flex-row justify-content-center">
+            <li className="nav-item">
+              <Link to="/" className="nav-link">
                 Home
               </Link>
             </li>
-            <li class="nav-item">
-              <Link to="/products" class="nav-link">
+            <li className="nav-item">
+              <Link to="/products" className="nav-link">
                 Product
               </Link>
             </li>
-            <li class="nav-item">
-              <Link to="/contact" class="nav-link">
+            <li className="nav-item">
+              <Link to="/contact" className="nav-link">
                 Contact
               </Link>
             </li>
-            <li class="nav-item">
-              <Link to="/about" class="nav-link">
+            <li className="nav-item">
+              <Link to="/about" className="nav-link">
                 About
               </Link>
             </li>

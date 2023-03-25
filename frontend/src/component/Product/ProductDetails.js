@@ -21,12 +21,13 @@ import {
 import { Rating } from "@material-ui/lab";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
 import "./ProductDetails.css";
+import ProductCard from "../Home/ProductCard";
 
 const ProductDetails = ({ match }) => {
   const alert = useAlert();
   const dispatch = useDispatch();
 
-  const { product, loading, error } = useSelector(
+  const { product, products, loading, error } = useSelector(
     (state) => state.productDetails
   );
 
@@ -166,6 +167,30 @@ const ProductDetails = ({ match }) => {
                   <p>{product?.description}</p>
                 </div>
               </div>
+
+              {/* Related Product */}
+              {products.length > 0 ? (
+                <div className="mt-5 container">
+                  <div className="d-flex justify-content-center">
+                    <h3 className="px-3 pb-2 border-bottom">
+                      Suggestion For You
+                    </h3>
+                  </div>
+                  <div className="row flex-nowrap overflow-scroll">
+                    {products &&
+                      products.map((product, index) => (
+                        <div
+                          className="col-sx-12 col-sm-6 col-lg-4 col-xl-3 d-flex justify-content-center"
+                          key={index}
+                        >
+                          <ProductCard product={product} />
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
 
               {/* Reviews Container */}
               <div className="my-5">

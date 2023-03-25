@@ -3,7 +3,7 @@
   scroll-behavior: smooth;
 }
 
-body::-webkit-scrollbar {
+body::-webkit-scrollbar{
   display: none;
 }
 
@@ -45,6 +45,7 @@ input[type="number"] {
   text-align: center;
   text-transform: uppercase;
   transition: all 0.5s;
+  border: none;
 }
 
 .button-outline {
