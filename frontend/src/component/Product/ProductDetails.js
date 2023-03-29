@@ -35,6 +35,10 @@ const ProductDetails = ({ match }) => {
     (state) => state.newReview
   );
   const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState("");
+  const [ram, setRam] = useState("");
+  const [size, setSize] = useState("");
+
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
@@ -55,12 +59,40 @@ const ProductDetails = ({ match }) => {
     setQuantity(qty);
   };
 
+  const onChangeOptions = (e) => {
+    if (e.target.name === "color") {
+      setColor(e.target.value);
+    } else if (e.target.name === "ram") {
+      setRam(e.target.value);
+    } else if (e.target.name === "size") {
+      setSize(e.target.value);
+    }
+  };
+
   const addToCartHandler = () => {
     if (product.stock <= 0) {
       alert.show("Product is out of stock");
       return;
     }
-    dispatch(addItemsToCart(match.params.id, quantity));
+    let options = {};
+    if(color !== "") {
+      options.color = color;
+    }
+    if(ram !== "") {
+      options.ram = ram;
+    }
+    if(size !== "") {
+      options.size = size;
+    }
+
+    if(product?.options) {
+      let keys = Object.keys(product?.options);
+      if(keys.length !== Object.keys(options).length) {
+        alert.info(`Please select options ${keys}`);
+        return;
+      }
+    }
+    dispatch(addItemsToCart(match.params.id, quantity, options));
     alert.success("Item added to cart");
   };
 
@@ -132,6 +164,35 @@ const ProductDetails = ({ match }) => {
                     <Rating {...options} />
                     <span>({product?.numOfReviews} Reviews)</span>
                   </div>
+                  <div className="my-2">
+                    {product?.options &&
+                      Object.keys(product?.options).map((key) => (
+                        // console.log("Options \n" + product.options[key])
+                        <div key={key} className="my-2">
+                          <p className="mb-1">{key}</p>
+                          <div className="d-flex">
+                            {product?.options[key].map((value) => (
+                              <div key={value} className="form-check me-2">
+                                <input
+                                  type="radio"
+                                  name={key}
+                                  className="form-check-input"
+                                  value={value}
+                                  id={value}
+                                  onChange={onChangeOptions}
+                                />
+                                <label
+                                  htmlFor={value}
+                                  className="form-check-label"
+                                >
+                                  {value}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                  </div>
                   <h6 className="fs-3 my-3">{`₹${product?.price}`}</h6>
                   <div className="mb-3">
                     <button className="qty-btn" onClick={decreaseQuantity}>
@@ -176,7 +237,7 @@ const ProductDetails = ({ match }) => {
                       Suggestion For You
                     </h3>
                   </div>
-                  <div className="row flex-nowrap overflow-scroll">
+                  <div className="row flex-nowrap overflow-auto">
                     {products &&
                       products.map((product, index) => (
                         <div

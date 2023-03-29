@@ -27,6 +27,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 
     req.body.images = imagesLink;
     req.body.user = req.user.id;
+    req.body.options = JSON.parse(req.body.options);
 
     const product = await Product.create(req.body);
 
@@ -47,8 +48,8 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
         .filter()
         .pagination(resultPerPage);
     const products = await ApiFeature.query;
-    const productsCount = products.length;
-
+    const productsCount = await Product.estimatedDocumentCount();
+    
     res.status(200).json({
         success: true,
         products,
@@ -57,11 +58,39 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
     })
 });
 
+exports.getRelatedProducts = catchAsyncErrors(async (req, res, next) => {
+    try {
+        const resultPerPage = 8;
+
+        const RelatedProduct = await Product.find({ category: req.body.category })
+            .sort({ ratings: 1 })
+            .limit(resultPerPage);
+
+        const products = RelatedProduct.filter((item) => item._id.toString() !== req.body.productID);
+
+        res.status(200).json({
+            success: true,
+            products
+        });
+
+    } catch (error) {
+        res.status(201).json({
+            success: false,
+            message: "Related Product is not found"
+        })
+    }
+
+})
+
 
 //Get All Product (Admin)
 exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
 
     const products = await Product.find();
+
+    products.options = {
+        color: ['red', 'blue']
+    }
 
     res.status(200).json({
         success: true,
@@ -78,9 +107,14 @@ exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
     }
 
     const RelatedProduct = await Product.find({ category: product.category })
-        .sort({ ratings: 1 })
-        .limit(6);
+            .sort({ ratings: 1 })
+            .limit(6);
     const products = RelatedProduct.filter((item) => item._id.toString() !== req.params.id);
+
+    // product.options = {
+    //     color: ['red', 'blue'],
+    //     ram: ['3 GB', '4 GB']
+    // }
 
     res.status(200).json({
         success: true,
@@ -128,6 +162,9 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
 
         req.body.images = imagesLinks;
     }
+
+    // Parse options object
+    req.body.options = JSON.parse(req.body.options)
 
     product = await Product.findByIdAndUpdate(req.params.id, req.body, {
         new: true,

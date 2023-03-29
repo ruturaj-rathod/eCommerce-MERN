@@ -67,7 +67,7 @@ const Cart = ({ history }) => {
             <div className="container h-custome d-flex flex-column flex-lg-row align-items-center align-items-md-start">
               {/* Cart Items container */}
               <div className="col-8">
-                <div className="w-100 card" style={{ minWidth: "250px" }}>
+                <div className="w-100 card" style={{ minWidth: "200px" }}>
                   <div className="card-header">
                     <h5 className="mb-0">Cart Items</h5>
                   </div>
@@ -93,6 +93,10 @@ const Cart = ({ history }) => {
                           <p className="mb-1">
                             <strong>{item.name}</strong>
                           </p>
+                          {item.options && Object.keys(item.options).map((key) => (
+                            <p className="mb-1" key={key}><strong>{key}</strong>: <strong>{item.options[key]}</strong></p>
+                          ))}
+                          <p className="mb-1"></p>
                           <p>
                             <strong>₹{item.price}</strong>
                           </p>

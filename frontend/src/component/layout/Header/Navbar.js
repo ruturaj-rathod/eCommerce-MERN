@@ -6,10 +6,12 @@ import { Link } from "react-router-dom";
 import DrawerComponent from "./Drawer";
 import { PersonOutline, ShoppingCart } from "@material-ui/icons";
 import "./Header.css";
+import { useSelector } from "react-redux";
 
 function Navbar() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const { cartItems } = useSelector((state) => state.cart);
 
   return (
     <div className="container d-flex align-items-center navbar">
@@ -24,16 +26,16 @@ function Navbar() {
       {/* Brand Name */}
       {isMobile ? (
         <div className="flex-grow-1 d-flex justify-content-center">
-        <Link to="/" className="navbar-brand">
-          Ecommerce
-        </Link>
-      </div>
+          <Link to="/" className="navbar-brand">
+            Ecommerce
+          </Link>
+        </div>
       ) : (
-      <div>
-        <Link to="/" className="navbar-brand">
-          Ecommerce
-        </Link>
-      </div>
+        <div>
+          <Link to="/" className="navbar-brand">
+            Ecommerce
+          </Link>
+        </div>
       )}
       {/* Navbar Links */}
       {!isMobile ? (
@@ -67,7 +69,10 @@ function Navbar() {
       {/* Icon of Right Side */}
       <div className="d-flex me-2 me-sx-0">
         <Link to="/cart" className="nav-link">
-          <ShoppingCart fontSize="small"/>
+          <ShoppingCart fontSize="small" />
+          {cartItems?.length > 0 ? (
+            <span class="badge rounded-pill bg-secondary">{cartItems?.length}</span>
+          ) : ""}
         </Link>
         <Link to="/login" className="nav-link">
           <PersonOutline fontSize="small" />

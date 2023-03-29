@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 import { clearErrors, getOrderDetails } from "../../actions/orderAction";
 import Loader from "../layout/Loader/Loader";
 import MetaData from "../layout/MetaData";
+import axios from "axios";
 import "./OrderDetails.css";
 
-const OrderDetails = ({ match }) => {
+const OrderDetails = ({ match, history }) => {
   const { order, error, loading } = useSelector((state) => state.orderDetails);
 
   const dispatch = useDispatch();
@@ -21,6 +22,22 @@ const OrderDetails = ({ match }) => {
     }
     dispatch(getOrderDetails(match.params.id));
   }, [dispatch, error, alert, match.params.id]);
+
+  const cancelOrderHandler = () => {
+    axios
+      .delete(`/api/v1/order/${order?._id}`)
+      .then((res) => {
+        if (res.data.success) {
+          alert.success(res.data.message);
+          history.push("/orders");
+        } else {
+          alert.show(res.data.message);
+        }
+      })
+      .catch((error) => {
+        alert.info(error.response.data.message);
+      });
+  };
   return (
     <Fragment>
       {loading ? (
@@ -73,6 +90,18 @@ const OrderDetails = ({ match }) => {
                 <div>
                   <p>{order?.orderStatus}</p>
                 </div>
+                {order?.orderStatus !== "Delivered" ? (
+                  <div>
+                    <button
+                      className="btn btn-danger"
+                      onClick={cancelOrderHandler}
+                    >
+                      Cancel order
+                    </button>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <div className="orderDetailsCartItems">
@@ -81,7 +110,15 @@ const OrderDetails = ({ match }) => {
                 {order?.orderItems.map((item) => (
                   <div key={item.product}>
                     <img src={item.image} alt="Product" />
-                    <Link to={`/product/${item.product}`}>{item.name}</Link>
+                    <div>
+                      <Link to={`/product/${item.product}`}>{item.name}</Link>
+                      {item.options &&
+                        Object.keys(item.options).map((key) => (
+                          <p className="mb-1" key={key}>
+                            {key}: {item.options[key]}
+                          </p>
+                        ))}
+                    </div>
                     <span>
                       {item.quantity} x {item.price} ={" "}
                       <b>${item.quantity * item.price}</b>

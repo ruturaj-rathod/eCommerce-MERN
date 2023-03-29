@@ -64,7 +64,15 @@ const ShippingConfirm = ({ history }) => {
               {cartItems?.map((item) => (
                 <div key={item.product}>
                   <img src={item.image} alt="Cart item" />
-                  <Link to={`/product/${item.product}`}>{item.name}</Link>
+                  <div>
+                    <Link to={`/product/${item.product}`}>{item.name}</Link>
+                    {item.options &&
+                      Object.keys(item.options).map((key) => (
+                        <p className="mb-1" key={key}>
+                          {key}: {item.options[key]}
+                        </p>
+                      ))}
+                  </div>
                   <span>
                     {item.quantity} X {item.price} ={" "}
                     <b>${item.price * item.quantity}</b>

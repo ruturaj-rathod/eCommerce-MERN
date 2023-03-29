@@ -74,9 +74,8 @@
   width: 80px;
 }
 
-.confirmCartItemsContainer > div > a {
+.confirmCartItemsContainer > div > div > a {
   color: #575757;
-  margin: 0px 10px;
   width: 50%;
   text-decoration: none;
 }
@@ -169,7 +168,7 @@
   }
 
   .confirmCartItems {
-    padding: 20px 40px 0px 40px;
+    padding: 20px 3px 0px 3px;
   }
 
   .confirmCartItems > p {

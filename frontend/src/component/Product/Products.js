@@ -67,7 +67,7 @@ const Products = () => {
       <div className="bg-light">
         <div className="container py-5">
           <div className="d-flex justify-content-center">
-            <h2 className="px-3 pb-2 border-bottom">Popular Product</h2>
+            <h2 className="px-3 pb-2 border-bottom">Product</h2>
           </div>
           <div className="d-flex justify-content-center justify-content-sm-end my-3">
             <div>
@@ -102,7 +102,7 @@ const Products = () => {
           {/* Pagination */}
           <div className="d-flex justify-content-center my-3 my-sm-5">
             <Pagination
-              count={parseInt(productsCount / 8) + 1}
+              count={(parseInt(productsCount / 7) + 1) || 1}
               color="primary"
               defaultPage={1}
               page={currentPage}

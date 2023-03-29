@@ -34,9 +34,48 @@ const NewProduct = ({ history }) => {
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
   const [stock, setStock] = useState(0);
+  /* For option field*/
+  const [options, setOptions] = useState({});
+  const [key, setKey] = useState("");
+  const [value, setValue] = useState("");
+  /*  */
   const [category, setCategory] = useState("");
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
+
+  /* Add Option Handler */
+  const addHandler = () => {
+    let isKeyExist = Object.keys(options).includes(key);
+
+    let tempOptions = options;
+    if (isKeyExist) {
+      tempOptions[key].push(value);
+      setOptions({
+        ...tempOptions,
+      });
+    } else {
+      tempOptions[key] = [value];
+    }
+    setKey("");
+    setValue("");
+  };
+  /* Remove Option Handler */
+  const removeHandler = (key, value) => {
+    let tempOptions = options;
+    const index = tempOptions[key].indexOf(value);
+    tempOptions[key].splice(index, index + 1);
+
+    if (tempOptions[key].length === 0) {
+      tempOptions = Object.keys(tempOptions)
+        .filter((tKey) => tKey !== key)
+        .reduce((acc, key) => {
+          acc[key] = tempOptions[key];
+          return acc;
+        }, {});
+    }
+
+    setOptions({ ...tempOptions });
+  };
 
   useEffect(() => {
     if (error) {
@@ -59,6 +98,7 @@ const NewProduct = ({ history }) => {
     myForm.set("price", price);
     myForm.set("stock", stock);
     myForm.set("description", description);
+    myForm.set("options", JSON.stringify(options));
     myForm.set("category", category);
     images.forEach((image) => {
       myForm.append("images", image);
@@ -176,6 +216,78 @@ const NewProduct = ({ history }) => {
               sx={{ marginBlock: "10px" }}
               required
             />
+
+             {/* Options */}
+             <div className="form-group my-4">
+              <label>Options</label>
+              {options &&
+                Object.keys(options).map((key) =>
+                  options[key].map((option) => (
+                    <div className="d-flex mt-3" key={option}>
+                      <div className="form-group w-100 me">
+                        <label htmlFor="">Key</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={key}
+                          readOnly
+                        />
+                      </div>
+                      <div className="form-group w-100">
+                        <label>Value: </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={option}
+                          readOnly
+                        />
+                      </div>
+                      <div className="my-auto">
+                        <label htmlFor="">{" |"}</label>
+                        <button
+                          type="button"
+                          className="btn btn-warning my-auto"
+                          onClick={() => removeHandler(key, option)}
+                        >
+                          remove
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              <div className="d-flex mt-2">
+                <div className="form-group w-100 me-3">
+                  <label>Key: </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="key"
+                    value={key}
+                    onChange={(e) => setKey(e.target.value)}
+                  />
+                </div>
+                <div className="form-group w-100">
+                  <label>Value: </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="value"
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="">|</label>
+                  <button
+                    type="button"
+                    className="btn btn-success m-auto"
+                    onClick={addHandler}
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
+            </div>
 
             {/* Description */}
             <TextareaAutosize
