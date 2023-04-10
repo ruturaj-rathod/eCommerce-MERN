@@ -1,66 +1,9 @@
 .banner {
-  background-image: url('./../../images/home-new-bg-free-img.jpg');
-  background-repeat: no-repeat;
-  background-size: 100%;
-  height: 30rem;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  color: white;
-}
-
-.banner-text {
-  width: 90%;
-  margin: auto;
-}
-
-.banner-text > h1 {
-  width: 50%;
-  font-size: 56px;
-  line-height: 78px;
-  margin-bottom: 20px;
-}
-
-.banner-text > h3 {
-  font-size: 26px;
-  margin-bottom: 20px;
-}
-
-.banner-text > div {
-  display: flex;
-}
-
-.banner-text > div > div:last-child {
-  margin: 0px 0px 0px 20px;
-}
-
-.banner-text > div > div > a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    font-size: 10px;
-}
-
-.banner > p {
-  margin-top: 1rem;
-  font: 300 1.4vmax "Lucida Sans";
-}
-
-.banner > a > button {
-  margin-bottom: 5vmax;
-  cursor: pointer;
-  background-color: white;
-  border: 1px solid white;
-  width: 9vmax;
-  padding: 1vmax;
-  transition: all 0.5s;
-  border-radius: 0;
-  font: 500 1vmax "Roboto";
-}
-
-.banner > a > button:hover {
-  background-color: rgba(255, 255, 255, 0);
-  color: white;
+  background-image: url('./../../images/home-banner.jpg');
+  background-size: cover;
+  background-position: top;
+  color: rgb(255, 255, 255);
+  min-height: 500px;
 }
 
 .menu-icon > svg {
@@ -77,22 +20,26 @@
   height: 400px;
 }
 
+.bg-blend {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
 .bg-image1 {
-  background-image: url('./../../images/men-fashion.jpg');
-  background-repeat: no-repeat;
-  background-size: contain;
+  background-image: url('./../../images/fashion-offer.jpg');
 }
 
 .bg-image2 {
-  background-image: url('./../../images/footwear.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-image: url('./../../images/electonic-offer.jpg');
 }
 
 .bg-image3 {
-  background-image: url('./../../images/mobile.jpg');
+  background-image: url('./../../images/footwear-offer.jpg');
+}
+
+.bg-image1, .bg-image2, .bg-image3 {
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
 }
 
 /* product styling */
@@ -103,86 +50,39 @@
   display: flex;
 }
 
+/* Special offer */
+.bg-special-offer {
+  background-image: url('./../../images/special-offer.jpg');
+  background-size: cover;
+  background-position: center;
+  color: rgb(255, 255, 255);
+}
+
+@media screen and (max-width: 1200px) {
+  .banner, .bg-special-offer {
+    min-height: unset;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .bg-height {
+    height: 300px;
+  }
+/* 
+  .bg-blend {
+    height: inherit;
+  } */
+}
+
 @media screen and (max-width: 768px) {
   .h-300 {
     height: 400px;
   }
-
-  .bg-height {
-    height: auto;
-  }
-}
-
-@media screen and (max-width: 900px) {
-  .banner {
-    height: 30rem;
-  }
-
-  .banner-text > h1 {
-    font-size: 36px;
-    line-height: 50px;
-  }
-  
-  .banner-text > h3 {
-    font-size: 24px;
-  }
-
-  .banner-text > div > div:last-child {
-    margin-left: 0px;
-    margin-top: 10px;
-  }
-
-}
-
-@media screen and (max-width: 720px) {
-  .banner-text > h1 {
-    text-align: center;
-    width: 100%;
-  }
-
-  .banner-text > h3 {
-    text-align: center;
-  }
-
-  .banner-text > div {
-    display: block;
-  }
 }
 
 @media screen and (max-width: 600px) {
-  .banner {
-    height: 16rem;
-  }
-
-  .banner-text > h1 {
-    font-size: 18px;
-    line-height: 36px;
-  }
-  .banner-text > h3 {
-    font-size: 12px;
-  }
-
   .bg-limit {
     width: 100vw;
     object-fit: contain;
   }
-}
-
-@media screen and (max-width: 400px) {
-    .banner {
-      height: 10rem;
-    }
-
-    .banner-text > h1 {
-      font-size: 14px;
-      line-height: 10px;
-    }
-
-    .banner-text > h3 {
-      font-size: 10px;
-    }
-
-    .button-contain, .button-outline {
-      padding: 5px;
-    }
 }

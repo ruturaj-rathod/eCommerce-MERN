@@ -1,6 +1,10 @@
+.min-vh-80 {
+  min-height: 70vh;
+}
+
 .myOrdersPage {
   width: 90%;
-  margin: 20px auto;
+  margin: auto;
   box-sizing: border-box;
   background-color: rgb(235, 235, 235);
   display: flex;
@@ -14,7 +18,7 @@
   box-sizing: border-box;
   color: rgba(0, 0, 0);
   transition: all 0.5s;
-  background-color: 80828550;
+  background-color: #80828550;
 }
 
 .myOrdersTable {

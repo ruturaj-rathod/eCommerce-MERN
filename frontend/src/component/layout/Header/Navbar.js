@@ -7,16 +7,18 @@ import DrawerComponent from "./Drawer";
 import { PersonOutline, ShoppingCart } from "@material-ui/icons";
 import "./Header.css";
 import { useSelector } from "react-redux";
+import logo from "./../../../images/logo.png";
 
 function Navbar() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  // const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.down("md"));
   const { cartItems } = useSelector((state) => state.cart);
 
   return (
     <div className="container d-flex align-items-center navbar">
       {/* Expand Menu for mobile view */}
-      {isMobile ? (
+      {isTablet ? (
         <div>
           <DrawerComponent />
         </div>
@@ -24,21 +26,21 @@ function Navbar() {
         ""
       )}
       {/* Brand Name */}
-      {isMobile ? (
+      {isTablet ? (
         <div className="flex-grow-1 d-flex justify-content-center">
           <Link to="/" className="navbar-brand">
-            Ecommerce
+          <img src={logo} alt="Ecommerce" width='130'/>
           </Link>
         </div>
       ) : (
         <div>
           <Link to="/" className="navbar-brand">
-            Ecommerce
+            <img src={logo} alt="Ecommerce" width='200'/>
           </Link>
         </div>
       )}
       {/* Navbar Links */}
-      {!isMobile ? (
+      {!isTablet ? (
         <div className="flex-grow-1">
           <ul className="navbar-nav d-flex flex-row justify-content-center">
             <li className="nav-item">

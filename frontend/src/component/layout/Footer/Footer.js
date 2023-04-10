@@ -1,35 +1,47 @@
 import React from "react";
-import Appstore from "../../../images/Appstore.png";
-import Playstore from "../../../images/playstore.png";
-import "./Footer.css";
+import logo from "../../../images/logo.png";
+import { Link, Typography } from "@mui/material";
 
 const Footer = () => {
   return (
-    <footer className="bg-light shadow">
-      <div className="container pt-4 pb-1">
-        <div className="row mb-5">
-          <div className="col-12 col-sm-6 text-center text-sm-start">
-              <h4>Download our app</h4>
-              <p>Download app for android and iOS mobile phone</p>
-              <img src={Appstore} alt="Appstore" className="footer-image" />
-              <img src={Playstore} alt="Playstore" className="footer-image" />
+    <footer className="border-top">
+      <div className="container py-4">
+        <div className="row">
+          <div className="col-12 col-md-3 mt-3 text-center text-md-start">
+            <Link to="/" className="navbar-brand">
+              <img src={logo} alt="Ecommerce" width='150' />
+            </Link>
+          </div>
+          <div className="col-12 col-md-3 mt-5 mt-md-3 text-center text-md-start">
+            <Typography className="fw-bold">Shop</Typography>
+            <div className="d-flex flex-column mt-3">
+              <Link to='/#' className="text-decoration-none">Hot Deals</Link>
+              <Link to='/#' className="text-decoration-none">Categories</Link>
+              <Link to='/#' className="text-decoration-none">Brands</Link>
+              <Link to='/#' className="text-decoration-none">Weekly Deals</Link>
             </div>
-          <div className="col-12 col-sm-6 mt-4 mt-sm-0 text-center text-sm-start">
-              <h4>FOLLOW US</h4>
-              <a className="nav-link ms-0" href="http://instagram.com/">
-                Instagram
-              </a>
-              <a className="nav-link ms-0" href="http://facebook.com/">
-                Facebook
-              </a>
-              <a className="nav-link ms-0" href="http://twitter.com/">
-                Twitter
-              </a>
+          </div>
+          <div className="col-12 col-md-3 mt-5 mt-md-3 text-center text-md-start">
+            <Typography className="fw-bold">Need help?</Typography>
+            <div className="d-flex flex-column mt-3">
+              <Link to='/#' className="text-decoration-none">Hot Deals</Link>
+              <Link to='/#' className="text-decoration-none">Categories</Link>
+              <Link to='/#' className="text-decoration-none">Brands</Link>
+              <Link to='/#' className="text-decoration-none">Weekly Deals</Link>
+            </div>
+          </div>
+          <div className="col-12 col-md-3 mt-5 mt-md-3 text-center text-md-start">
+            <Typography className="fw-bold">Contact</Typography>
+            <div className="d-flex flex-column mt-3">
+              <Link className="text-decoration-none">123, fifth streat, XYZ, 430010</Link>
+              <Link className="text-decoration-none">ecommerce@info.com</Link>
+              <Link className="text-decoration-none">90909 80808</Link>
+            </div>
           </div>
         </div>
-        <p className="text-center fw-bolder fw-normal mb-0">
-          Ecommerce Copyright &copy; 2023. All Right Reserve
-        </p>
+      </div>
+      <div className="text-center p-4 fw-bold bg-light mt-3">
+        Ecommerce Copyright &copy; 2023. All Right Reserve
       </div>
     </footer>
   );

@@ -11,6 +11,8 @@ import GlobeImage from "./../../images/globe-free-img.png";
 import LockImage from "./../../images/lock-free-img.png";
 import QualityImage from "./../../images/quality-free-img.png";
 import TagImage from "./../../images/tag-free-img.png";
+import { Box, Typography } from "@mui/material";
+import SpecialOffer from "./SpecialOffer";
 
 const Home = () => {
   const alert = useAlert();
@@ -28,30 +30,30 @@ const Home = () => {
   return (
     <Fragment>
       <MetaData title="Ecommerce" /> {/* title of the page */}
-      <div className="banner">
-        <div className="banner-text">
-          <h1>Raining Offers For Hot Summer!</h1>
-          <h3>25% Off On All Products</h3>
-          <div>
-            <div>
-              <a className="button button-contain" href="#container">
-                SHOP NOW
-              </a>
-            </div>
-            <div>
-              <a className="button button-outline" href="#container">
-                FIND MORE
-              </a>
-            </div>
-          </div>
+      <Box
+        className="banner p-3 p-sm-5 banner-inner d-flex flex-column justify-content-center align-items-center align-items-sm-start"
+      >
+        <Typography variant="h3" component="div" className="my-3 text-center text-sm-start">
+          Raining Offers For Hot Summer
+        </Typography>
+        <Typography variant="h5" component="div" className="my-3 text-center text-sm-start">
+          25% Off On All Products
+        </Typography>
+        <div className="mt-2 mt-sm-5 pb-5">
+          <button className="btn btn-dark rounded-0 me-3 me-sm-5">
+            <a className="text-decoration-none text-white" href="#container">SHOP NOW</a>
+          </button>
+          <button className="btn btn-outline-light rounded-0">
+            <a className="text-decoration-none text-white" href="#container">FIND MORE</a>
+          </button>
         </div>
-      </div>
+      </Box>
       {/* Offer layer*/}
       <Offer />
       {/* Popular Product List */}
-      <div className="bg-light">
+      <div className="bg-light" id="popular-product">
         <div className="container py-5">
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center py-2 py-sm-5">
             <h2 className="px-3 pb-2 border-bottom">Popular Product</h2>
           </div>
           {loading ? (
@@ -73,6 +75,8 @@ const Home = () => {
           )}
         </div>
       </div>
+      {/* Special Offer */}
+      <SpecialOffer />
       {/* Why choose us */}
       <div className="d-flex flex-column flex-md-row text-center mt-4">
         <div className="px-2 py-2 px-sm-5 py-md-4 px-md-4">
