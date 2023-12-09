@@ -1,0 +1,45 @@
+version: "3"
+services:
+  front:
+    build: ./frontend
+    command: npm run dev
+    ports:
+      - 3000:3000
+    environment:
+      - WATCHPACK_POLLING=true
+    container_name: ecommerce-front
+    networks:
+      - ecommerce-network
+    depends_on:
+      - api
+    volumes:
+      - ./frontend:/app
+  api:
+    build: ./backend
+    command: npm run dev
+    ports:
+      - 4000:4000
+    container_name: ecommerce-api
+    networks:
+      - ecommerce-network
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+  db:
+    image: mongo
+    ports:
+      - 2717:27017
+    container_name: ecommerce-db
+    networks:
+      - ecommerce-network
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_DATABASE=ecommerce
+    volumes:
+      - ~/db:/data/db
+networks:
+  ecommerce-network:
+volumes:
+  mongoData:

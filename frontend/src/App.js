@@ -41,6 +41,7 @@ import AboutUs from "./component/layout/AboutUs";
 import Contact from "./component/layout/Contact";
 
 function App() {
+  axios.defaults.baseURL = "http://localhost:4000";
   const [stripeApiKey, setStripeApiKey] = useState();
   const { isAuthenticated, user } = useSelector(state => state.user);
 

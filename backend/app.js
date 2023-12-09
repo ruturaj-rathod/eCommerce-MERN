@@ -1,27 +1,29 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const cors = require('cors');
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const app = express();
 
 const errorMiddleware = require("./middleware/error");
 //config
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config({ path: "./config/config.env" });
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config({ path: "./config/config.env" });
 }
 // dotenv.config({path:"./config/config.env"});
 
-app.use(cors({
-    origin: "http://localhost:3000",
-    credentials: true
-}));
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
 
-//Route Imports 
+//Route Imports
 const product = require("./routes/productRoute");
 const user = require("./routes/userRoutes");
 const order = require("./routes/orderRoute");
@@ -34,6 +36,5 @@ app.use("/api/v1", payment);
 
 //Middleware for Errors
 app.use(errorMiddleware);
-
 
 module.exports = app;
