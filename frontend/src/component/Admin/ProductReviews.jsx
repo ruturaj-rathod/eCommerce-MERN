@@ -4,8 +4,8 @@ import {
   clearErrors,
   getAllReviews,
   deleteReview,
-} from "./../../actions/productAction";
-import MetaData from "./../layout/MetaData";
+} from "../../actions/productAction";
+import MetaData from "../layout/MetaData";
 import Sidebar from "./Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";

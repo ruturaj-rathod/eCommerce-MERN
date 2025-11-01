@@ -2,7 +2,7 @@ import { Typography } from "@material-ui/core";
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import MetaData from "./../layout/MetaData";
+import MetaData from "../layout/MetaData";
 import CheckoutStep from "./CheckoutStep";
 import "./ShippingConfirm.css";
 

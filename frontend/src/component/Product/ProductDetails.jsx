@@ -6,7 +6,7 @@ import {
   getProductDetails,
   newReview,
 } from "../../actions/productAction";
-import ReviewCard from "./ReviewCard.js";
+import ReviewCard from "./ReviewCard";
 import Loader from "../layout/Loader/Loader";
 import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
@@ -75,19 +75,19 @@ const ProductDetails = ({ match }) => {
       return;
     }
     let options = {};
-    if(color !== "") {
+    if (color !== "") {
       options.color = color;
     }
-    if(ram !== "") {
+    if (ram !== "") {
       options.ram = ram;
     }
-    if(size !== "") {
+    if (size !== "") {
       options.size = size;
     }
 
-    if(product?.options) {
+    if (product?.options) {
       let keys = Object.keys(product?.options);
-      if(keys.length !== Object.keys(options).length) {
+      if (keys.length !== Object.keys(options).length) {
         alert.info(`Please select options ${keys}`);
         return;
       }

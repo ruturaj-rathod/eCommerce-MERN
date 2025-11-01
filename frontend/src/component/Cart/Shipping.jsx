@@ -11,7 +11,7 @@ import { Fragment, useState } from "react";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import "./Shipping.css";
-import MetaData from "./../layout/MetaData";
+import MetaData from "../layout/MetaData";
 import CheckoutStep from "./CheckoutStep";
 import { saveShippingInfo } from "../../actions/cartAction";
 

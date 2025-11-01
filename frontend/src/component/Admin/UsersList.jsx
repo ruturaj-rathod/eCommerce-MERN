@@ -1,7 +1,7 @@
-import React, { Fragment, useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
-import { clearErrors, deleteProduct, getAdminProducts } from "./../../actions/productAction";
-import MetaData from "./../layout/MetaData";
+import { clearErrors, allUsers, deleteUser } from '../../actions/userAction';
+import MetaData from "../layout/MetaData";
 import Sidebar from "./Sidebar";
 import "./ProductList.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,13 +9,13 @@ import { useAlert } from "react-alert";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { Delete, Edit } from "@material-ui/icons";
-import { DELETE_PRODUCT_RESET } from "../../constants/productConstants";
+import { DELETE_USER_RESET } from "../../constants/userConstants";
 
-const ProductList = () => {
+const UsersList = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
-  const { error, products } = useSelector((state) => state.products);
-  const { error: deletedError, deleted} = useSelector((state) => state.deleteProduct);
+  const { error, users} = useSelector((state) => state.allUsers);
+  const { error: deletedError, isDeleted} = useSelector((state) => state.profile);
 
   useEffect(() => {
     if (error) {
@@ -28,49 +28,44 @@ const ProductList = () => {
         dispatch(clearErrors());
     }
 
-    if(deleted) {
-        alert.success("Product deleted successfully");
-        dispatch({type: DELETE_PRODUCT_RESET});
+    if(isDeleted) {
+        alert.success("User deleted successfully");
+        dispatch({type: DELETE_USER_RESET});
     }
-    dispatch(getAdminProducts());
-  }, [dispatch, error, alert, deletedError, deleted]);
+    dispatch(allUsers());
+  }, [dispatch, error, alert, deletedError, isDeleted]);
 
-  const deleteProductHandler = (id) => {
-      dispatch(deleteProduct(id));
+  const deleteUserHandler = (id) => {
+      dispatch(deleteUser(id));
   }
   const columns = [
-    { field: "id", headerName: "Product ID",  flex: 1 },
+    { field: "id", headerName: "User Id", flex: 0.5},
     { field: "name", headerName: "Name", flex: 1 },
     {
-      field: "stock",
-      headerName: "Stock",
-      
-      flex: 0.3,
-      type: "Number",
+      field: "email",
+      headerName: "Email",
+      flex: 0.7,
     },
     {
-      field: "price",
-      headerName: "Price",
-      
+      field: "role",
+      headerName: "Role",
       flex: 0.5,
-      type: "Number",
     },
     {
       field: "action",
       headerName: "Actions",
-      
       flex: 1,
       type: "Number",
       sortable: false,
       renderCell: (params) => {
         return (
           <Fragment>
-            <Link to={`/admin/product/${params.getValue(params.id, "id")}`}>
+            <Link to={`/admin/user/${params.getValue(params.id, "id")}`}>
               <Edit />
             </Link>
             <Button
               onClick={() =>
-                deleteProductHandler(params.getValue(params.id, "id"))
+                deleteUserHandler(params.getValue(params.id, "id"))
               }
             >
               <Delete />
@@ -82,22 +77,22 @@ const ProductList = () => {
   ];
 
   const rows = [];
-  products?.forEach((item) => {
+  users?.forEach((user) => {
     rows.push({
-      id: item._id,
-      stock: item.stock,
-      price: item.price,
-      name: item.name,
+      id: user._id,
+      role: user.role,
+      email: user.email,
+      name: user.name,
     });
   });
 
   return (
     <Fragment>
-      <MetaData title={`ALL PRODUCTS - ADMIN`} />
+      <MetaData title={`ALL USERS - ADMIN`} />
       <div className="dashboard">
         <Sidebar />
         <div className="productListContainer">
-          <h1 id="productListHeading">ALL PRODUCTS</h1>
+          <h1 id="productListHeading">ALL USERS</h1>
           <DataGrid
             rows={rows}
             columns={columns}
@@ -112,4 +107,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default UsersList;

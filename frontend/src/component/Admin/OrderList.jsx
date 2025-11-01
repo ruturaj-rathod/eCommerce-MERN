@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
-import { clearErrors, deleteOrder, getAllOrders } from "./../../actions/orderAction";
-import MetaData from "./../layout/MetaData";
+import { clearErrors, deleteOrder, getAllOrders } from "../../actions/orderAction";
+import MetaData from "../layout/MetaData";
 import Sidebar from "./Sidebar";
 import "./ProductList.css";
 import { useDispatch, useSelector } from "react-redux";
