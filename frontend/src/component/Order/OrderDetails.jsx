@@ -1,6 +1,6 @@
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import React, { Fragment, useEffect } from "react";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { clearErrors, getOrderDetails } from "../../actions/orderAction";
@@ -13,29 +13,28 @@ const OrderDetails = ({ match, history }) => {
   const { order, error, loading } = useSelector((state) => state.orderDetails);
 
   const dispatch = useDispatch();
-  const alert = useAlert();
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors);
     }
     dispatch(getOrderDetails(match.params.id));
-  }, [dispatch, error, alert, match.params.id]);
+  }, [dispatch, error, match.params.id]);
 
   const cancelOrderHandler = () => {
     axios
       .delete(`/api/v1/order/${order?._id}`)
       .then((res) => {
         if (res.data.success) {
-          alert.success(res.data.message);
+          toast.success(res.data.message);
           history.push("/orders");
         } else {
-          alert.show(res.data.message);
+          toast.show(res.data.message);
         }
       })
       .catch((error) => {
-        alert.info(error.response.data.message);
+        toast.info(error.response.data.message);
       });
   };
   return (

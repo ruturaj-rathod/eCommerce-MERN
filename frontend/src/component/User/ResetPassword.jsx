@@ -1,9 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
 import Loader from "../layout/Loader/Loader";
-import { Lock, LockOpen } from "@material-ui/icons";
+import { Lock, LockOpen } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, resetPassword } from "../../actions/userAction";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import MetaData from "../layout/MetaData";
 import {
   Button,
@@ -16,7 +16,6 @@ import "./UserForm.css";
 
 const ResetPassword = ({ history, match }) => {
   const dispatch = useDispatch();
-  const alert = useAlert();
 
   const { error, success, loading } = useSelector(
     (state) => state.forgotPassword
@@ -35,15 +34,15 @@ const ResetPassword = ({ history, match }) => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error.error);
+      toast.error(error.error);
       dispatch(clearErrors());
     }
 
     if (success) {
-      alert.success("Password reset successfully");
+      toast.success("Password reset successfully");
       history.push("/login");
     }
-  }, [dispatch, error, alert, history, success]);
+  }, [dispatch, error, history, success]);
   return (
     <Fragment>
       {loading ? (

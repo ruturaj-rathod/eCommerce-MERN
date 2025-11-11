@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Delete } from "@material-ui/icons";
+import { Delete } from "@mui/icons-material";
 import { Button, Dialog, DialogTitle, DialogActions } from "@mui/material";
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";

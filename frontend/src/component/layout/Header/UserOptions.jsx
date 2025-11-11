@@ -1,17 +1,17 @@
-import React, { Fragment, useState } from "react";
+import { useState } from "react";
+import { Backdrop } from "@mui/material";
 import "./Header.css";
 import profileIcon from "./../../../images/Profile.png";
-import { SpeedDial, SpeedDialAction } from "@material-ui/lab";
-import Backdrop from "@material-ui/core/Backdrop";
+import { SpeedDial, SpeedDialAction } from "@mui/material";
 import {
   DashboardOutlined,
   ExitToApp,
   ListAlt,
   Person,
   ShoppingCart,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import { useHistory } from "react-router-dom";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../actions/userAction";
 
@@ -19,7 +19,6 @@ const UserOptions = ({ user }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-  const alert = useAlert();
   const options = [
     { icon: <ListAlt />, name: "Orders", func: orders },
     { icon: <Person />, name: "Profile", func: account },
@@ -53,7 +52,7 @@ const UserOptions = ({ user }) => {
 
   function logoutUser() {
     dispatch(logout());
-    alert.success("Logout successfully");
+    toast.success("Logout successfully");
   }
   return (
     <>

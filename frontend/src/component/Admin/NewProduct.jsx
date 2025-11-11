@@ -3,16 +3,16 @@ import {
   AttachMoney,
   Spellcheck,
   Storage,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import { Fragment, useEffect, useState } from "react";
 import MetaData from "../layout/MetaData";
 import Sidebar from "./Sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import { clearErrors, createProduct } from "../../actions/productAction";
 import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
 import { Button, InputAdornment, MenuItem, TextField } from "@mui/material";
-import { TextareaAutosize } from "@mui/base";
+import { TextareaAutosize } from "@mui/material";
 import "./Form.css";
 
 const categories = [
@@ -27,7 +27,6 @@ const categories = [
 
 const NewProduct = ({ history }) => {
   const dispatch = useDispatch();
-  const alert = useAlert();
   const { loading, error, success } = useSelector((state) => state.newProduct);
 
   const [name, setName] = useState("");
@@ -79,16 +78,16 @@ const NewProduct = ({ history }) => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (success) {
-      alert.success("Product created successfully");
+      toast.success("Product created successfully");
       history.push("/admin/dashboard");
       dispatch({ type: NEW_PRODUCT_RESET });
     }
-  }, [dispatch, error, alert, history, success]);
+  }, [dispatch, error, history, success]);
 
   const createProductSubmitHandler = (e) => {
     e.preventDefault();
@@ -217,8 +216,8 @@ const NewProduct = ({ history }) => {
               required
             />
 
-             {/* Options */}
-             <div className="form-group my-4">
+            {/* Options */}
+            <div className="form-group my-4">
               <label>Options</label>
               {options &&
                 Object.keys(options).map((key) =>

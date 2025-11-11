@@ -5,10 +5,10 @@ import {
   PinDrop,
   Public,
   TransferWithinAStation,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import { Country, State } from "country-state-city";
 import { Fragment, useState } from "react";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import "./Shipping.css";
 import MetaData from "../layout/MetaData";
@@ -17,7 +17,6 @@ import { saveShippingInfo } from "../../actions/cartAction";
 
 const Shipping = ({ history }) => {
   const dispatch = useDispatch();
-  const alert = useAlert();
   const { shippingInfo } = useSelector((state) => state.cart);
   const [address, setAddress] = useState(shippingInfo.address);
   const [city, setCity] = useState(shippingInfo.city);
@@ -29,7 +28,7 @@ const Shipping = ({ history }) => {
   const shippingSubmit = (e) => {
     e.preventDefault();
     if (phoneNo.length < 10 || phoneNo.length > 10) {
-      alert.error("Phone Number should have 10 digit");
+      toast.error("Phone Number should have 10 digit");
       return;
     }
     dispatch(
@@ -37,6 +36,7 @@ const Shipping = ({ history }) => {
     );
     history.push("/order/confirm");
   };
+
   return (
     <Fragment>
       <MetaData title={`Shipping details`} />

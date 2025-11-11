@@ -1,10 +1,10 @@
-import { Email, Person, VerifiedUser } from "@material-ui/icons";
+import { Email, Person, VerifiedUser } from "@mui/icons-material";
 import { Fragment, useEffect, useState } from "react";
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import MetaData from "../layout/MetaData";
 import Sidebar from "./Sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import { UPDATE_USER_RESET } from "../../constants/userConstants";
 import { clearErrors, updateUser, userDetails } from "../../actions/userAction";
 import { InputAdornment, MenuItem, TextField } from "@mui/material";
@@ -12,7 +12,6 @@ import "./Form.css";
 
 const UpdateUser = ({ history, match }) => {
   const dispatch = useDispatch();
-  const alert = useAlert();
   const { error, user } = useSelector((state) => state.userDetails);
   const {
     loading: updateLoading,
@@ -35,21 +34,21 @@ const UpdateUser = ({ history, match }) => {
       setRole(user?.role);
     }
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (updateError) {
-      alert.error(updateError);
+      toast.error(updateError);
       dispatch(clearErrors());
     }
 
     if (isUpdated) {
-      alert.success("Product updated successfully");
+      toast.success("Product updated successfully");
       history.push("/admin/users");
       dispatch({ type: UPDATE_USER_RESET });
     }
-  }, [dispatch, error, alert, history, updateError, user, isUpdated, userId]);
+  }, [dispatch, error, history, updateError, user, isUpdated, userId]);
 
   const updateUserSubmitHandler = (e) => {
     e.preventDefault();

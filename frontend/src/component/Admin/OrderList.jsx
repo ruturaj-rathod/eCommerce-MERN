@@ -1,39 +1,44 @@
 import React, { Fragment, useEffect } from "react";
-import { DataGrid } from "@material-ui/data-grid";
-import { clearErrors, deleteOrder, getAllOrders } from "../../actions/orderAction";
+import { DataGrid } from "@mui/x-data-grid";
+import {
+  clearErrors,
+  deleteOrder,
+  getAllOrders,
+} from "../../actions/orderAction";
 import MetaData from "../layout/MetaData";
 import Sidebar from "./Sidebar";
 import "./ProductList.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { Button } from "@material-ui/core";
-import { Delete, Edit } from "@material-ui/icons";
+import { Button } from "@mui/material";
+import { Delete, Edit } from "@mui/icons-material";
 import { DELETE_ORDER_RESET } from "../../constants/orderConstants";
 
 const OrderList = () => {
   const dispatch = useDispatch();
-  const alert = useAlert();
   const { error, orders } = useSelector((state) => state.allOrders);
-  const { error: deletedError, isDeleted } = useSelector((state) => state.order);
+  const { error: deletedError, isDeleted } = useSelector(
+    (state) => state.order
+  );
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (deletedError) {
-      alert.error(deletedError);
+      toast.error(deletedError);
       dispatch(clearErrors());
     }
 
     if (isDeleted) {
-      alert.success("Product deleted successfully");
+      toast.success("Product deleted successfully");
       dispatch({ type: DELETE_ORDER_RESET });
     }
     dispatch(getAllOrders());
-  }, [dispatch, error, alert, deletedError, isDeleted]);
+  }, [dispatch, error, deletedError, isDeleted]);
 
   const deleteOrderHandler = (id) => {
     dispatch(deleteOrder(id));

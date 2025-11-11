@@ -1,76 +1,84 @@
 import React, { Fragment, useEffect } from "react";
-import { DataGrid } from "@material-ui/data-grid";
-import { clearErrors, deleteProduct, getAdminProducts } from "../../actions/productAction";
+import { DataGrid } from "@mui/x-data-grid";
+import {
+  clearErrors,
+  deleteProduct,
+  getAdminProducts,
+} from "../../actions/productAction";
 import MetaData from "../layout/MetaData";
 import Sidebar from "./Sidebar";
 import "./ProductList.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { Button } from "@material-ui/core";
-import { Delete, Edit } from "@material-ui/icons";
+import { Button } from "@mui/material";
+import { Delete, Edit } from "@mui/icons-material";
 import { DELETE_PRODUCT_RESET } from "../../constants/productConstants";
 
 const ProductList = () => {
   const dispatch = useDispatch();
-  const alert = useAlert();
   const { error, products } = useSelector((state) => state.products);
-  const { error: deletedError, deleted} = useSelector((state) => state.deleteProduct);
+  const { error: deletedError, deleted } = useSelector(
+    (state) => state.deleteProduct
+  );
+
+  console.log("products", products);
+  
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
-    if(deletedError) {
-        alert.error(deletedError);
-        dispatch(clearErrors());
+    if (deletedError) {
+      toast.error(deletedError);
+      dispatch(clearErrors());
     }
 
-    if(deleted) {
-        alert.success("Product deleted successfully");
-        dispatch({type: DELETE_PRODUCT_RESET});
+    if (deleted) {
+      toast.success("Product deleted successfully");
+      dispatch({ type: DELETE_PRODUCT_RESET });
     }
     dispatch(getAdminProducts());
-  }, [dispatch, error, alert, deletedError, deleted]);
+  }, [dispatch, error, deletedError, deleted]);
 
   const deleteProductHandler = (id) => {
-      dispatch(deleteProduct(id));
-  }
+    dispatch(deleteProduct(id));
+  };
   const columns = [
-    { field: "id", headerName: "Product ID",  flex: 1 },
+    { field: "id", headerName: "Product ID", flex: 1 },
     { field: "name", headerName: "Name", flex: 1 },
     {
       field: "stock",
       headerName: "Stock",
-      
+
       flex: 0.3,
       type: "Number",
     },
     {
       field: "price",
       headerName: "Price",
-      
+
       flex: 0.5,
       type: "Number",
     },
     {
       field: "action",
       headerName: "Actions",
-      
+
       flex: 1,
       type: "Number",
       sortable: false,
       renderCell: (params) => {
         return (
           <Fragment>
-            <Link to={`/admin/product/${params.getValue(params.id, "id")}`}>
+            <Link to={`/admin/product/${params?.getValue?.(params?.id, "id")}`}>
               <Edit />
             </Link>
             <Button
               onClick={() =>
-                deleteProductHandler(params.getValue(params.id, "id"))
+                deleteProductHandler(params?.getValue?.(params?.id, "id"))
               }
             >
               <Delete />

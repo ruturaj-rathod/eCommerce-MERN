@@ -1,18 +1,17 @@
-import { Typography } from "@material-ui/core";
-import { DataGrid } from "@material-ui/data-grid";
+import { Typography } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import Loader from "../layout/Loader/Loader";
 import MetaData from "../layout/MetaData";
 import "./MyOrders.css";
 import { clearErrors, myOrders } from "../../actions/orderAction";
 import { Link } from "react-router-dom";
-import { Launch } from "@material-ui/icons";
+import { Launch } from "@mui/icons-material";
 
 const MyOrders = () => {
   const dispatch = useDispatch();
-  const alert = useAlert();
   const { loading, error, orders } = useSelector((state) => state.myOrders);
   const { user } = useSelector((state) => state.user);
 
@@ -66,11 +65,11 @@ const MyOrders = () => {
   });
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
     dispatch(myOrders());
-  }, [dispatch, error, alert]);
+  }, [dispatch, error]);
   return (
     <Fragment>
       <MetaData title={`${user.name} Orders`} />

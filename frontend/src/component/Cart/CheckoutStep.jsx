@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
-import { Typography, Stepper, Step, StepLabel } from "@material-ui/core";
+import { Typography, Stepper, Step, StepLabel } from "@mui/material";
 import {
   AccountBalance,
   LibraryAddCheck,
   LocalShipping,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import "./CheckoutStep.css";
 
 const CheckoutStep = ({ activeStep }) => {

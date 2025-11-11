@@ -4,7 +4,7 @@ import Product from "./ProductCard";
 import { clearErrors, getProduct } from "../../actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../layout/Loader/Loader";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import "./Home.css";
 import Offer from "./Offer";
 import GlobeImage from "./../../images/globe-free-img.png";
@@ -15,36 +15,48 @@ import { Box, Typography } from "@mui/material";
 import SpecialOffer from "./SpecialOffer";
 
 const Home = () => {
-  const alert = useAlert();
   const dispatch = useDispatch();
   const { loading, error, products } = useSelector((state) => state.products);
 
   useEffect(() => {
+    dispatch(getProduct());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getProduct());
-  }, [dispatch, error, alert]);
+  }, [error]);
 
   return (
     <Fragment>
       <MetaData title="Ecommerce" /> {/* title of the page */}
-      <Box
-        className="banner p-3 p-sm-5 banner-inner d-flex flex-column justify-content-center align-items-center align-items-sm-start"
-      >
-        <Typography variant="h3" component="div" className="my-3 text-center text-sm-start">
+      <Box className="banner p-3 p-sm-5 banner-inner d-flex flex-column justify-content-center align-items-center align-items-sm-start">
+        <Typography
+          variant="h3"
+          component="div"
+          className="my-3 text-center text-sm-start"
+        >
           Raining Offers For Hot Summer
         </Typography>
-        <Typography variant="h5" component="div" className="my-3 text-center text-sm-start">
+        <Typography
+          variant="h5"
+          component="div"
+          className="my-3 text-center text-sm-start"
+        >
           25% Off On All Products
         </Typography>
         <div className="mt-2 mt-sm-5 pb-5">
           <button className="btn btn-dark rounded-0 me-3 me-sm-5">
-            <a className="text-decoration-none text-white" href="#container">SHOP NOW</a>
+            <a className="text-decoration-none text-white" href="#container">
+              SHOP NOW
+            </a>
           </button>
           <button className="btn btn-outline-light rounded-0">
-            <a className="text-decoration-none text-white" href="#container">FIND MORE</a>
+            <a className="text-decoration-none text-white" href="#container">
+              FIND MORE
+            </a>
           </button>
         </div>
       </Box>

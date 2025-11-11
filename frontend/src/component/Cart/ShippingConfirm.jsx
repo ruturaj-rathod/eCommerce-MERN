@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";

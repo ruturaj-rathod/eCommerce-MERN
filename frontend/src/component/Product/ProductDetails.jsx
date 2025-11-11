@@ -8,7 +8,7 @@ import {
 } from "../../actions/productAction";
 import ReviewCard from "./ReviewCard";
 import Loader from "../layout/Loader/Loader";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import MetaData from "../layout/MetaData";
 import { addItemsToCart } from "../../actions/cartAction";
 import {
@@ -17,14 +17,13 @@ import {
   DialogContent,
   DialogActions,
   Button,
-} from "@material-ui/core";
-import { Rating } from "@material-ui/lab";
+} from "@mui/material";
+import { Rating } from "@mui/material";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
 import "./ProductDetails.css";
 import ProductCard from "../Home/ProductCard";
 
 const ProductDetails = ({ match }) => {
-  const alert = useAlert();
   const dispatch = useDispatch();
 
   const { product, products, loading, error } = useSelector(
@@ -71,7 +70,7 @@ const ProductDetails = ({ match }) => {
 
   const addToCartHandler = () => {
     if (product.stock <= 0) {
-      alert.show("Product is out of stock");
+      toast.show("Product is out of stock");
       return;
     }
     let options = {};
@@ -88,12 +87,12 @@ const ProductDetails = ({ match }) => {
     if (product?.options) {
       let keys = Object.keys(product?.options);
       if (keys.length !== Object.keys(options).length) {
-        alert.info(`Please select options ${keys}`);
+        toast.info(`Please select options ${keys}`);
         return;
       }
     }
     dispatch(addItemsToCart(match.params.id, quantity, options));
-    alert.success("Item added to cart");
+    toast.success("Item added to cart");
   };
 
   const submitReviewToggle = () => {
@@ -112,19 +111,19 @@ const ProductDetails = ({ match }) => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
     if (reviewError) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
     if (success) {
-      alert.success("Review submitted successfully");
+      toast.success("Review submitted successfully");
       dispatch({ type: NEW_REVIEW_RESET });
     }
     dispatch(getProductDetails(match.params.id));
-  }, [dispatch, match.params.id, error, alert, reviewError, success]);
+  }, [dispatch, match.params.id, error, reviewError, success]);
 
   const options = {
     value: product?.ratings,

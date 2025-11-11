@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import {
   clearErrors,
   getAllReviews,
@@ -8,15 +8,14 @@ import {
 import MetaData from "../layout/MetaData";
 import Sidebar from "./Sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
-import { Button } from "@material-ui/core";
-import { Delete, Star } from "@material-ui/icons";
+import { toast } from "react-toastify";
+import { Button } from "@mui/material";
+import { Delete, Star } from "@mui/icons-material";
 import { DELETE_REVIEW_RESET } from "../../constants/productConstants";
 import "./ProductReviews.css";
 
 const ProductReviews = () => {
   const dispatch = useDispatch();
-  const alert = useAlert();
   const { error, reviews } = useSelector((state) => state.productReviews);
   const { error: deletedError, isDeleted } = useSelector(
     (state) => state.review
@@ -28,20 +27,20 @@ const ProductReviews = () => {
       dispatch(getAllReviews);
     }
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (deletedError) {
-      alert.error(deletedError);
+      toast.error(deletedError);
       dispatch(clearErrors());
     }
 
     if (isDeleted) {
-      alert.success("Review deleted successfully");
+      toast.success("Review deleted successfully");
       dispatch({ type: DELETE_REVIEW_RESET });
     }
-  }, [dispatch, error, alert, deletedError, isDeleted, productId]);
+  }, [dispatch, error, deletedError, isDeleted, productId]);
 
   const deleteProductReviewHandler = (reviewId, productId) => {
     dispatch(deleteReview(reviewId, productId));

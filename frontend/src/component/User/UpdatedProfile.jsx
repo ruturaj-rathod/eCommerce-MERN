@@ -1,18 +1,23 @@
 import { Fragment, useEffect, useState } from "react";
 import Loader from "../layout/Loader/Loader";
 import Profile from "./../../images/Profile.png";
-import { FaceOutlined, MailOutlined } from "@material-ui/icons";
+import { FaceOutlined, MailOutlined } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, loadUser, updateProfile } from "../../actions/userAction";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import { PROFILE_UPDATE_RESET } from "../../constants/userConstants";
 import MetaData from "../layout/MetaData";
-import { Stack, Button, InputAdornment, TextField, Typography } from "@mui/material";
+import {
+  Stack,
+  Button,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@mui/material";
 import "./UserForm.css";
 
 const UpdatedProfile = ({ history }) => {
   const dispatch = useDispatch();
-  const alert = useAlert();
 
   const { user } = useSelector((state) => state.user);
   const { error, isUpdated, loading } = useSelector((state) => state.profile);
@@ -51,18 +56,18 @@ const UpdatedProfile = ({ history }) => {
       setAvatarPreview(user.avatar.url);
     }
     if (error) {
-      alert.error(error.error);
+      toast.error(error.error);
       dispatch(clearErrors());
     }
 
     if (isUpdated) {
-      alert.success("Profile updated successfully");
+      toast.success("Profile updated successfully");
       dispatch(loadUser());
       history.push("/account");
 
       dispatch({ type: PROFILE_UPDATE_RESET });
     }
-  }, [dispatch, error, alert, history, user, isUpdated]);
+  }, [dispatch, error, history, user, isUpdated]);
 
   return (
     <Fragment>
@@ -82,7 +87,6 @@ const UpdatedProfile = ({ history }) => {
             </Stack>
             <form onSubmit={updateSubmit}>
               <Stack>
-
                 {/* Name Field */}
                 <TextField
                   label="Name"
@@ -120,13 +124,13 @@ const UpdatedProfile = ({ history }) => {
                 />
 
                 <Stack direction="row" id="updateProfileImage" my={1}>
-                    <img src={avatarPreview} alt="Avatar Preview" />
-                    <input
-                      type="file"
-                      name="avatar"
-                      accept="image/*"
-                      onChange={updateProfileDataChange}
-                    />
+                  <img src={avatarPreview} alt="Avatar Preview" />
+                  <input
+                    type="file"
+                    name="avatar"
+                    accept="image/*"
+                    onChange={updateProfileDataChange}
+                  />
                 </Stack>
 
                 {/* Submit Button */}

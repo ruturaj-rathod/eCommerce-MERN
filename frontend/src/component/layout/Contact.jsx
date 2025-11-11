@@ -1,4 +1,4 @@
-import { LocationCity, Phone } from "@material-ui/icons";
+import { LocationCity, Phone } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import React from "react";
 

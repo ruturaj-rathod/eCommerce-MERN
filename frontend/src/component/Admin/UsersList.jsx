@@ -1,45 +1,46 @@
 import { Fragment, useEffect } from "react";
-import { DataGrid } from "@material-ui/data-grid";
-import { clearErrors, allUsers, deleteUser } from '../../actions/userAction';
+import { DataGrid } from "@mui/x-data-grid";
+import { clearErrors, allUsers, deleteUser } from "../../actions/userAction";
 import MetaData from "../layout/MetaData";
 import Sidebar from "./Sidebar";
 import "./ProductList.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { Button } from "@material-ui/core";
-import { Delete, Edit } from "@material-ui/icons";
+import { Button } from "@mui/material";
+import { Delete, Edit } from "@mui/icons-material";
 import { DELETE_USER_RESET } from "../../constants/userConstants";
 
 const UsersList = () => {
   const dispatch = useDispatch();
-  const alert = useAlert();
-  const { error, users} = useSelector((state) => state.allUsers);
-  const { error: deletedError, isDeleted} = useSelector((state) => state.profile);
+  const { error, users } = useSelector((state) => state.allUsers);
+  const { error: deletedError, isDeleted } = useSelector(
+    (state) => state.profile
+  );
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
-    if(deletedError) {
-        alert.error(deletedError);
-        dispatch(clearErrors());
+    if (deletedError) {
+      toast.error(deletedError);
+      dispatch(clearErrors());
     }
 
-    if(isDeleted) {
-        alert.success("User deleted successfully");
-        dispatch({type: DELETE_USER_RESET});
+    if (isDeleted) {
+      toast.success("User deleted successfully");
+      dispatch({ type: DELETE_USER_RESET });
     }
     dispatch(allUsers());
-  }, [dispatch, error, alert, deletedError, isDeleted]);
+  }, [dispatch, error, deletedError, isDeleted]);
 
   const deleteUserHandler = (id) => {
-      dispatch(deleteUser(id));
-  }
+    dispatch(deleteUser(id));
+  };
   const columns = [
-    { field: "id", headerName: "User Id", flex: 0.5},
+    { field: "id", headerName: "User Id", flex: 0.5 },
     { field: "name", headerName: "Name", flex: 1 },
     {
       field: "email",

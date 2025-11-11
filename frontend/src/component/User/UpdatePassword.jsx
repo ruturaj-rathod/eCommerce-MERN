@@ -1,17 +1,22 @@
 import { Fragment, useEffect, useState } from "react";
 import Loader from "../layout/Loader/Loader";
-import { Lock, LockOpen, VpnKey } from "@material-ui/icons";
+import { Lock, LockOpen, VpnKey } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, updatePassword } from "../../actions/userAction";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import { UPDATE_PASSWORD_RESET } from "../../constants/userConstants";
 import MetaData from "../layout/MetaData";
-import { Button, InputAdornment, Stack, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import "./UserForm.css";
 
 const UpdatePassword = ({ history }) => {
   const dispatch = useDispatch();
-  const alert = useAlert();
 
   const { error, isUpdated, loading } = useSelector((state) => state.profile);
   const [oldPassword, setOldPassword] = useState("");
@@ -30,17 +35,17 @@ const UpdatePassword = ({ history }) => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error.error);
+      toast.error(error.error);
       dispatch(clearErrors());
     }
 
     if (isUpdated) {
-      alert.success("Profile updated successfully");
+      toast.success("Profile updated successfully");
       history.push("/account");
 
       dispatch({ type: UPDATE_PASSWORD_RESET });
     }
-  }, [dispatch, error, alert, history, isUpdated]);
+  }, [dispatch, error, history, isUpdated]);
   return (
     <Fragment>
       {loading ? (
@@ -59,7 +64,7 @@ const UpdatePassword = ({ history }) => {
             </Stack>
             <form onSubmit={updateSubmit}>
               <Stack>
-                  {/* Old password */}
+                {/* Old password */}
                 <TextField
                   label="Old Password"
                   type="password"
@@ -76,7 +81,7 @@ const UpdatePassword = ({ history }) => {
                   sx={{ marginBlock: "10px" }}
                   required
                 />
-                
+
                 {/* New Password */}
                 <TextField
                   label="New Password"
@@ -94,7 +99,7 @@ const UpdatePassword = ({ history }) => {
                   sx={{ marginBlock: "10px" }}
                   required
                 />
-                
+
                 {/* Confirm Passwword */}
                 <TextField
                   label="Old Password"

@@ -53,6 +53,7 @@ export const login = (email, password) => async (dispatch) => {
         }
       )
       .then((response) => {
+        axios.defaults.headers.authorization = `Bearer ${response.data.token}`;
         dispatch({ type: LOGIN_SUCCESS, payload: response.data.user });
       })
       .catch((error) => {

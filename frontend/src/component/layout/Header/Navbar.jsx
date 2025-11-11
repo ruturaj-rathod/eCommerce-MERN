@@ -4,7 +4,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import DrawerComponent from "./Drawer";
-import { PersonOutline, ShoppingCart } from "@material-ui/icons";
+import { PersonOutline, ShoppingCart } from "@mui/icons-material";
 import "./Header.css";
 import { useSelector } from "react-redux";
 import logo from "./../../../images/logo.png";

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { clearErrors, getProduct } from "../../actions/productAction";
 import Loader from "../layout/Loader/Loader";
 import Product from "../Home/ProductCard";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import MetaData from "../layout/MetaData";
 import {
   Button,
@@ -20,7 +20,7 @@ import {
   Pagination,
   PaginationItem,
 } from "@mui/material";
-import { ArrowBack, ArrowForward } from "@material-ui/icons";
+import { ArrowBack, ArrowForward } from "@mui/icons-material";
 
 const categories = [
   "Laptop",
@@ -34,7 +34,6 @@ const categories = [
 
 const Products = () => {
   const dispatch = useDispatch();
-  const alert = useAlert();
 
   const [keyword, setkeyword] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -48,12 +47,15 @@ const Products = () => {
   );
 
   useEffect(() => {
+    dispatch(getProduct(keyword, currentPage));
+  }, [dispatch]);
+
+  useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors);
     }
-    dispatch(getProduct(keyword, currentPage));
-  }, [dispatch, keyword, currentPage, alert, error]);
+  }, [dispatch, keyword, currentPage, error]);
 
   const handleFilter = () => {
     setCurrentPage(1);
@@ -102,7 +104,7 @@ const Products = () => {
           {/* Pagination */}
           <div className="d-flex justify-content-center my-3 my-sm-5">
             <Pagination
-              count={(parseInt(productsCount / 7) + 1) || 1}
+              count={parseInt(productsCount / 7) + 1 || 1}
               color="primary"
               defaultPage={1}
               page={currentPage}

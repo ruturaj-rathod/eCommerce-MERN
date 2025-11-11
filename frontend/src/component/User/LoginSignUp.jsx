@@ -5,13 +5,13 @@ import {
   FaceOutlined,
   LockOpenOutlined,
   MailOutlined,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login, register, clearErrors } from "../../actions/userAction";
-import { useAlert } from "react-alert";
-import { TabContext, TabList, TabPanel } from "@material-ui/lab";
+import { toast } from "react-toastify";
 import {
+  Tabs,
   Tab,
   Box,
   Stack,
@@ -23,7 +23,6 @@ import "./UserForm.css";
 
 const LoginSignUp = ({ history, location }) => {
   const dispatch = useDispatch();
-  const alert = useAlert();
   const { error, loading, isAuthenticated } = useSelector(
     (state) => state.user
   );
@@ -44,7 +43,6 @@ const LoginSignUp = ({ history, location }) => {
   const [avatar, setAvatar] = useState(Profile);
   const [avatarPreview, setAvatarPreview] = useState(Profile);
   //   const [ name, email, password] = registerData;
-
 
   const loginSubmit = (e) => {
     e.preventDefault();
@@ -82,14 +80,14 @@ const LoginSignUp = ({ history, location }) => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error.error);
+      toast.error(error.error);
       dispatch(clearErrors());
     }
 
     if (isAuthenticated) {
       history.push(redirect);
     }
-  }, [dispatch, error, alert, history, isAuthenticated, redirect]);
+  }, [dispatch, error, history, isAuthenticated, redirect]);
 
   return (
     <Fragment>
@@ -98,22 +96,23 @@ const LoginSignUp = ({ history, location }) => {
       ) : (
         <Fragment>
           <div className="login-container">
-            <TabContext value={value}>
-              <Box>
-                <TabList
-                  aria-label="Tabs Example"
-                  onChange={handleChange}
-                  textColor="secondary"
-                  indicatorColor="secondary"
-                  centered
-                >
-                  <Tab value="1" label="Login" />
-                  <Tab value="2" label="Sign Up" />
-                </TabList>
-              </Box>
+            <Box>
+              <Tabs
+                value={value}
+                aria-label="Tabs Example"
+                onChange={handleChange}
+                textColor="secondary"
+                indicatorColor="secondary"
+                centered
+              >
+                <Tab value="1" label="Login" />
+                <Tab value="2" label="Sign Up" />
+              </Tabs>
+            </Box>
 
-              {/* Login Tab */}
-              <TabPanel value="1">
+            {/* Login Tab */}
+            {value === "1" && (
+              <Box>
                 <form onSubmit={loginSubmit}>
                   <Stack>
                     {/* Name Field */}
@@ -164,10 +163,12 @@ const LoginSignUp = ({ history, location }) => {
                     </Stack>
                   </Stack>
                 </form>
-              </TabPanel>
+              </Box>
+            )}
 
-              {/* Sigup Tab */}
-              <TabPanel value="2">
+            {/* Sigup Tab */}
+            {value === "2" && (
+              <Box>
                 <form onSubmit={registerSubmit}>
                   <Stack>
                     {/* Sign up Name Field */}
@@ -246,8 +247,8 @@ const LoginSignUp = ({ history, location }) => {
                     </Stack>
                   </Stack>
                 </form>
-              </TabPanel>
-            </TabContext>
+              </Box>
+            )}
           </div>
         </Fragment>
       )}

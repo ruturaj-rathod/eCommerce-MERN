@@ -3,13 +3,13 @@ import {
   AttachMoney,
   Spellcheck,
   Storage,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import { Fragment, useEffect, useState } from "react";
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import MetaData from "../layout/MetaData";
 import Sidebar from "./Sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import { EDIT_PRODUCT_RESET } from "../../constants/productConstants";
 import {
   clearErrors,
@@ -17,7 +17,7 @@ import {
   getProductDetails,
 } from "../../actions/productAction";
 import { InputAdornment, MenuItem, TextField } from "@mui/material";
-import { TextareaAutosize } from "@mui/base";
+import { TextareaAutosize } from "@mui/material";
 import "./Form.css";
 
 const categories = [
@@ -32,7 +32,6 @@ const categories = [
 
 const UpdateProduct = ({ history, match }) => {
   const dispatch = useDispatch();
-  const alert = useAlert();
   const { loading, error, success } = useSelector((state) => state.newProduct);
   const { error: productDetailsError, product } = useSelector(
     (state) => state.productDetails
@@ -69,24 +68,23 @@ const UpdateProduct = ({ history, match }) => {
       setOldImages(product?.images);
     }
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (productDetailsError) {
-      alert.error(productDetailsError);
+      toast.error(productDetailsError);
       dispatch(clearErrors());
     }
 
     if (success) {
-      alert.success("Product updated successfully");
+      toast.success("Product updated successfully");
       history.push("/admin/products");
       dispatch({ type: EDIT_PRODUCT_RESET });
     }
   }, [
     dispatch,
     error,
-    alert,
     history,
     success,
     productId,
@@ -255,7 +253,7 @@ const UpdateProduct = ({ history, match }) => {
               required
             />
 
-              {/* Options */}
+            {/* Options */}
             <div className="form-group my-4">
               <label>Options</label>
               {options &&

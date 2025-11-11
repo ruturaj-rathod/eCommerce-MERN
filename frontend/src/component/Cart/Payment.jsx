@@ -9,10 +9,10 @@ import {
 import "./Payment.css";
 import MetaData from "../layout/MetaData";
 import CheckoutStep from "./CheckoutStep";
-import { Typography } from "@material-ui/core";
-import { CreditCard, Event, VpnKey } from "@material-ui/icons";
+import { Typography } from "@mui/material";
+import { CreditCard, Event, VpnKey } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import axios from "axios";
 import { clearErrors, createOrder } from "../../actions/orderAction";
 
@@ -20,7 +20,6 @@ const Payment = ({ history }) => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
 
   const dispatch = useDispatch();
-  const alert = useAlert();
   const elemetns = useElements();
   const stripe = useStripe();
   const payBtn = useRef(null);
@@ -30,17 +29,17 @@ const Payment = ({ history }) => {
   const { error } = useSelector((state) => state.newOrder);
 
   const paymentData = {
-      amount: Math.round(orderInfo.totalPrice * 100)
-  }
+    amount: Math.round(orderInfo.totalPrice * 100),
+  };
 
-  let order =  {
+  let order = {
     shippingInfo,
     orderItems: cartItems,
     itemsPrice: orderInfo.subtotal,
     taxPrice: orderInfo.tax,
     shippingPrice: orderInfo.shippingCharges,
-    totalPrice: orderInfo.totalPrice
-} 
+    totalPrice: orderInfo.totalPrice,
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -81,33 +80,34 @@ const Payment = ({ history }) => {
 
       if (result.error) {
         payBtn.current.disabled = false;
-        alert.error(result.error.message);
+        toast.error(result.error.message);
       } else {
         if (result.paymentIntent.status === "succeeded") {
-            order.paymentInfo = {
-                id: result.paymentIntent.id,
-                status: result.paymentIntent.status
-            }
-            dispatch(createOrder(order));
+          order.paymentInfo = {
+            id: result.paymentIntent.id,
+            status: result.paymentIntent.status,
+          };
+          dispatch(createOrder(order));
           history.push("/success");
         } else {
-          alert.error("There is some issue while processing payment");
+          toast.error("There is some issue while processing payment");
         }
       }
     } catch (error) {
-        console.log(error.response.data);
+      console.log(error.response.data);
       payBtn.current.disabled = false;
-      alert.error(error.response.data.error);
+      toast.error(error.response.data.error);
     }
   };
 
   useEffect(() => {
-    if(error) {
-      alert.error(error);
+    if (error) {
+      toast.error(error);
       dispatch(clearErrors());
     }
     dispatch(clearErrors());
-  }, [dispatch, error, alert])
+  }, [dispatch, error]);
+
   return (
     <Fragment>
       <MetaData title={`payment`} />
