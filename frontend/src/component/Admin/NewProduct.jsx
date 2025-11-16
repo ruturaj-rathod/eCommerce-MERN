@@ -14,6 +14,7 @@ import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
 import { Button, InputAdornment, MenuItem, TextField } from "@mui/material";
 import { TextareaAutosize } from "@mui/material";
 import "./Form.css";
+import { useNavigate } from "react-router";
 
 const categories = [
   "Laptop",
@@ -25,7 +26,8 @@ const categories = [
   "SmartPhones",
 ];
 
-const NewProduct = ({ history }) => {
+const NewProduct = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, error, success } = useSelector((state) => state.newProduct);
 
@@ -84,10 +86,10 @@ const NewProduct = ({ history }) => {
 
     if (success) {
       toast.success("Product created successfully");
-      history.push("/admin/dashboard");
+      navigate("/admin/dashboard");
       dispatch({ type: NEW_PRODUCT_RESET });
     }
-  }, [dispatch, error, history, success]);
+  }, [dispatch, error, navigate, success]);
 
   const createProductSubmitHandler = (e) => {
     e.preventDefault();

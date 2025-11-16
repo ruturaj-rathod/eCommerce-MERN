@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import MetaData from "../layout/MetaData";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Typography } from "@mui/material";
 import SideBar from "./Sidebar";
 import {
@@ -15,8 +15,10 @@ import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import { Button } from "@mui/material";
 import { UPDATE_ORDER_RESET } from "../../constants/orderConstants";
 import "./processOrder.css";
+import { useParams } from "react-router";
 
-const ProcessOrder = ({ history, match }) => {
+const ProcessOrder = () => {
+  const { id } = useParams();
   const { order, error, loading } = useSelector((state) => state.orderDetails);
   const { error: updateError, isUpdated } = useSelector((state) => state.order);
 
@@ -27,7 +29,7 @@ const ProcessOrder = ({ history, match }) => {
 
     myForm.set("status", status);
 
-    dispatch(updateOrder(match.params.id, myForm));
+    dispatch(updateOrder(id, myForm));
   };
 
   const dispatch = useDispatch();
@@ -48,8 +50,8 @@ const ProcessOrder = ({ history, match }) => {
       dispatch({ type: UPDATE_ORDER_RESET });
     }
 
-    dispatch(getOrderDetails(match.params.id));
-  }, [dispatch, error, match.params.id, isUpdated, updateError]);
+    dispatch(getOrderDetails(id));
+  }, [dispatch, error, id, isUpdated, updateError]);
 
   return (
     <Fragment>

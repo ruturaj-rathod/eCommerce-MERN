@@ -1,6 +1,6 @@
 import Sidebar from "./Sidebar";
 import { Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import "./dashboard.css";
 import { Doughnut, Line } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";

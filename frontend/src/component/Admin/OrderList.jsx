@@ -10,7 +10,7 @@ import Sidebar from "./Sidebar";
 import "./ProductList.css";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Button } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
 import { DELETE_ORDER_RESET } from "../../constants/orderConstants";
@@ -50,9 +50,7 @@ const OrderList = () => {
       headerName: "Status",
       flex: 0.5,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
-          ? "greenColor"
-          : "redColor";
+        return params.row?.status === "Delivered" ? "greenColor" : "redColor";
       },
     },
     {
@@ -76,14 +74,10 @@ const OrderList = () => {
       renderCell: (params) => {
         return (
           <Fragment>
-            <Link to={`/admin/order/${params.getValue(params.id, "id")}`}>
+            <Link to={`/admin/order/${params.id}`}>
               <Edit />
             </Link>
-            <Button
-              onClick={() =>
-                deleteOrderHandler(params.getValue(params.id, "id"))
-              }
-            >
+            <Button onClick={() => deleteOrderHandler(params.id)}>
               <Delete />
             </Button>
           </Fragment>

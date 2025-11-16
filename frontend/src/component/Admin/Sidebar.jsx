@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import "./Sidebar.css";
 import { Dashboard, List, People, RateReview } from "@mui/icons-material";
 import { TreeItem, SimpleTreeView } from "@mui/x-tree-view";

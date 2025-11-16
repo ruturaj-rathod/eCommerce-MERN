@@ -15,8 +15,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { clearErrors, createOrder } from "../../actions/orderAction";
+import { useNavigate } from "react-router";
 
-const Payment = ({ history }) => {
+const Payment = () => {
+  const navigate = useNavigate(0);
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
 
   const dispatch = useDispatch();
@@ -88,7 +90,7 @@ const Payment = ({ history }) => {
             status: result.paymentIntent.status,
           };
           dispatch(createOrder(order));
-          history.push("/success");
+          navigate("/success");
         } else {
           toast.error("There is some issue while processing payment");
         }

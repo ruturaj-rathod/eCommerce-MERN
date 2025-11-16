@@ -1,13 +1,13 @@
 import { Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Loader from "../layout/Loader/Loader";
 import MetaData from "../layout/MetaData";
 import "./MyOrders.css";
 import { clearErrors, myOrders } from "../../actions/orderAction";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Launch } from "@mui/icons-material";
 
 const MyOrders = () => {
@@ -22,7 +22,7 @@ const MyOrders = () => {
       headerName: "Status",
       flex: 1,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
+        return params.row?.status === "Delivered"
           ? "greenColor"
           : "redColor";
       },
@@ -45,24 +45,31 @@ const MyOrders = () => {
       flex: 0.2,
       sortable: false,
       renderCell: (params) => {
+        console.log("params", params);
+        
         return (
-          <Link to={`/myorder/${params.getValue(params.id, "id")}`}>
+          <Link to={`/myorder/${params.id}`}>
             <Launch />
           </Link>
         );
       },
     },
   ];
-  const rows = [];
+  const rows = useMemo(() => {
+    const items = [];
 
-  orders?.forEach((item, index) => {
-    rows.push({
-      itemsQty: item.orderItems.length,
-      id: item._id,
-      status: item.orderStatus,
-      amount: item.totalPrice,
+    orders?.forEach((item, index) => {
+      items.push({
+        itemsQty: item.orderItems.length,
+        id: item._id,
+        status: item.orderStatus,
+        amount: item.totalPrice,
+      });
     });
-  });
+
+    return items
+  }, [orders]);
+
   useEffect(() => {
     if (error) {
       toast.error(error);

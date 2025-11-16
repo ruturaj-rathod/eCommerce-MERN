@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import { Fragment, useEffect, useState } from "react";
 import Loader from "../layout/Loader/Loader";
 import Profile from "./../../images/Profile.png";
@@ -16,7 +17,8 @@ import {
 } from "@mui/material";
 import "./UserForm.css";
 
-const UpdatedProfile = ({ history }) => {
+const UpdatedProfile = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.user);
@@ -63,11 +65,11 @@ const UpdatedProfile = ({ history }) => {
     if (isUpdated) {
       toast.success("Profile updated successfully");
       dispatch(loadUser());
-      history.push("/account");
+      navigate("/account");
 
       dispatch({ type: PROFILE_UPDATE_RESET });
     }
-  }, [dispatch, error, history, user, isUpdated]);
+  }, [dispatch, error, navigate, user, isUpdated]);
 
   return (
     <Fragment>

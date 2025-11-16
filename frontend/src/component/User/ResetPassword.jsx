@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import Loader from "../layout/Loader/Loader";
 import { Lock, LockOpen } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +15,9 @@ import {
 } from "@mui/material";
 import "./UserForm.css";
 
-const ResetPassword = ({ history, match }) => {
+const ResetPassword = () => {
+  const params = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { error, success, loading } = useSelector(
@@ -29,7 +32,7 @@ const ResetPassword = ({ history, match }) => {
     myForm.set("newPassword", newPassword);
     myForm.set("confirmPassword", confirmPassword);
 
-    dispatch(resetPassword(match.params.token, myForm));
+    dispatch(resetPassword(params.token, myForm));
   };
 
   useEffect(() => {
@@ -40,9 +43,10 @@ const ResetPassword = ({ history, match }) => {
 
     if (success) {
       toast.success("Password reset successfully");
-      history.push("/login");
+      navigate("/login");
     }
-  }, [dispatch, error, history, success]);
+  }, [dispatch, error, navigate, success]);
+
   return (
     <Fragment>
       {loading ? (

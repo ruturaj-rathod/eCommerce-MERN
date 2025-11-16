@@ -35,7 +35,7 @@ const categories = [
 const Products = () => {
   const dispatch = useDispatch();
 
-  const [keyword, setkeyword] = useState("");
+  const [keyword, setkeyword] = useState(""); 2002
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 25000]);
   const [category, setCategory] = useState("");

@@ -14,8 +14,10 @@ import "./Shipping.css";
 import MetaData from "../layout/MetaData";
 import CheckoutStep from "./CheckoutStep";
 import { saveShippingInfo } from "../../actions/cartAction";
+import { useNavigate } from "react-router";
 
-const Shipping = ({ history }) => {
+const Shipping = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { shippingInfo } = useSelector((state) => state.cart);
   const [address, setAddress] = useState(shippingInfo.address);
@@ -34,7 +36,7 @@ const Shipping = ({ history }) => {
     dispatch(
       saveShippingInfo({ address, city, state, country, pinCode, phoneNo })
     );
-    history.push("/order/confirm");
+    navigate("/order/confirm");
   };
 
   return (

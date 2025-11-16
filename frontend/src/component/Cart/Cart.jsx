@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import { Delete } from "@mui/icons-material";
 import { Button, Dialog, DialogTitle, DialogActions } from "@mui/material";
@@ -7,7 +8,8 @@ import { addItemsToCart, removeItemsFromCart } from "../../actions/cartAction";
 import "./Cart.css";
 import NoCartItem from "./NoCartItem";
 
-const Cart = ({ history }) => {
+const Cart = () => {
+  const navigate = useNavigate();
   const [removeDialog, setRemoveDialog] = useState(false);
   const [removeConfirm, setRemoveConfirm] = useState("");
   const [removeId, setRemoveId] = useState(null);
@@ -36,21 +38,21 @@ const Cart = ({ history }) => {
   };
 
   const handleRemoveConfirm = (log) => {
-      if(log === "yes") {
-        setRemoveConfirm("yes");
-      } else {
-        setRemoveConfirm("no");
-        setRemoveId(null);
-      }
-      setRemoveDialog(false);
-  }
+    if (log === "yes") {
+      setRemoveConfirm("yes");
+    } else {
+      setRemoveConfirm("no");
+      setRemoveId(null);
+    }
+    setRemoveDialog(false);
+  };
 
   const checkOutHandler = () => {
-    history.push("/login?redirect=shipping");
+    navigate("/login?redirect=shipping");
   };
 
   useEffect(() => {
-    if(removeConfirm === "yes") {
+    if (removeConfirm === "yes") {
       disptach(removeItemsFromCart(removeId));
       setRemoveId(null);
       setRemoveConfirm("");
@@ -93,9 +95,13 @@ const Cart = ({ history }) => {
                           <p className="mb-1">
                             <strong>{item.name}</strong>
                           </p>
-                          {item.options && Object.keys(item.options).map((key) => (
-                            <p className="mb-1" key={key}><strong>{key}</strong>: <strong>{item.options[key]}</strong></p>
-                          ))}
+                          {item.options &&
+                            Object.keys(item.options).map((key) => (
+                              <p className="mb-1" key={key}>
+                                <strong>{key}</strong>:{" "}
+                                <strong>{item.options[key]}</strong>
+                              </p>
+                            ))}
                           <p className="mb-1"></p>
                           <p>
                             <strong>₹{item.price}</strong>

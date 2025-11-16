@@ -2,14 +2,16 @@ import { Typography } from "@mui/material";
 import React, { Fragment, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router";
 import { clearErrors, getOrderDetails } from "../../actions/orderAction";
 import Loader from "../layout/Loader/Loader";
 import MetaData from "../layout/MetaData";
 import axios from "axios";
 import "./OrderDetails.css";
 
-const OrderDetails = ({ match, history }) => {
+const OrderDetails = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const { order, error, loading } = useSelector((state) => state.orderDetails);
 
   const dispatch = useDispatch();
@@ -19,8 +21,8 @@ const OrderDetails = ({ match, history }) => {
       toast.error(error);
       dispatch(clearErrors);
     }
-    dispatch(getOrderDetails(match.params.id));
-  }, [dispatch, error, match.params.id]);
+    dispatch(getOrderDetails(id));
+  }, [dispatch, error, id]);
 
   const cancelOrderHandler = () => {
     axios
@@ -28,7 +30,7 @@ const OrderDetails = ({ match, history }) => {
       .then((res) => {
         if (res.data.success) {
           toast.success(res.data.message);
-          history.push("/orders");
+          navigate("/orders");
         } else {
           toast.show(res.data.message);
         }

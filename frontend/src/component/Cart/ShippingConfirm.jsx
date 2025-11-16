@@ -1,12 +1,13 @@
 import { Typography } from "@mui/material";
 import { Fragment } from "react";
+import { useNavigate, Link } from "react-router";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import MetaData from "../layout/MetaData";
 import CheckoutStep from "./CheckoutStep";
 import "./ShippingConfirm.css";
 
-const ShippingConfirm = ({ history }) => {
+const ShippingConfirm = () => {
+  const navigate = useNavigate();
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
 
@@ -32,7 +33,7 @@ const ShippingConfirm = ({ history }) => {
     };
 
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
-    history.push("/process/payment");
+    navigate("/process/payment");
   };
 
   return (

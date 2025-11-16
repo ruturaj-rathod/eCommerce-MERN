@@ -10,15 +10,15 @@ import {
   Person,
   ShoppingCart,
 } from "@mui/icons-material";
-import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import { logout } from "../../../actions/userAction";
 
 const UserOptions = ({ user }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const options = [
     { icon: <ListAlt />, name: "Orders", func: orders },
     { icon: <Person />, name: "Profile", func: account },
@@ -35,19 +35,19 @@ const UserOptions = ({ user }) => {
   }
 
   function dashboard() {
-    history.push("/admin/dashboard");
+    navigate("/admin/dashboard");
   }
 
   function orders() {
-    history.push("/orders");
+    navigate("/orders");
   }
 
   function account() {
-    history.push("/account");
+    navigate("/account");
   }
 
   function cart() {
-    history.push("/cart");
+    navigate("/cart");
   }
 
   function logoutUser() {

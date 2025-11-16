@@ -10,7 +10,7 @@ import Sidebar from "./Sidebar";
 import "./ProductList.css";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Button } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
 import { DELETE_PRODUCT_RESET } from "../../constants/productConstants";
@@ -21,9 +21,6 @@ const ProductList = () => {
   const { error: deletedError, deleted } = useSelector(
     (state) => state.deleteProduct
   );
-
-  console.log("products", products);
-  
 
   useEffect(() => {
     if (error) {
@@ -73,14 +70,10 @@ const ProductList = () => {
       renderCell: (params) => {
         return (
           <Fragment>
-            <Link to={`/admin/product/${params?.getValue?.(params?.id, "id")}`}>
+            <Link to={`/admin/product/${params?.id}`}>
               <Edit />
             </Link>
-            <Button
-              onClick={() =>
-                deleteProductHandler(params?.getValue?.(params?.id, "id"))
-              }
-            >
+            <Button onClick={() => deleteProductHandler(params?.id)}>
               <Delete />
             </Button>
           </Fragment>

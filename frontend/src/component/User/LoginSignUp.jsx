@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
+import { useLocation, useNavigate, Link } from "react-router";
 import Loader from "../layout/Loader/Loader";
 import Profile from "./../../images/Profile.png";
 import {
@@ -6,7 +7,6 @@ import {
   LockOpenOutlined,
   MailOutlined,
 } from "@mui/icons-material";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login, register, clearErrors } from "../../actions/userAction";
 import { toast } from "react-toastify";
@@ -21,7 +21,9 @@ import {
 } from "@mui/material";
 import "./UserForm.css";
 
-const LoginSignUp = ({ history, location }) => {
+const LoginSignUp = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const { error, loading, isAuthenticated } = useSelector(
     (state) => state.user
@@ -85,9 +87,9 @@ const LoginSignUp = ({ history, location }) => {
     }
 
     if (isAuthenticated) {
-      history.push(redirect);
+      navigate(redirect);
     }
-  }, [dispatch, error, history, isAuthenticated, redirect]);
+  }, [dispatch, error, navigate, isAuthenticated, redirect]);
 
   return (
     <Fragment>

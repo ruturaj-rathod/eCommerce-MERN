@@ -9,8 +9,11 @@ import { UPDATE_USER_RESET } from "../../constants/userConstants";
 import { clearErrors, updateUser, userDetails } from "../../actions/userAction";
 import { InputAdornment, MenuItem, TextField } from "@mui/material";
 import "./Form.css";
+import { useNavigate, useParams } from "react-router";
 
-const UpdateUser = ({ history, match }) => {
+const UpdateUser = () => {
+  const { id: userId } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { error, user } = useSelector((state) => state.userDetails);
   const {
@@ -22,8 +25,6 @@ const UpdateUser = ({ history, match }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
-
-  const userId = match.params.id;
 
   useEffect(() => {
     if (!user || user._id !== userId) {
@@ -45,10 +46,10 @@ const UpdateUser = ({ history, match }) => {
 
     if (isUpdated) {
       toast.success("Product updated successfully");
-      history.push("/admin/users");
+      navigate("/admin/users");
       dispatch({ type: UPDATE_USER_RESET });
     }
-  }, [dispatch, error, history, updateError, user, isUpdated, userId]);
+  }, [dispatch, error, navigate, updateError, user, isUpdated, userId]);
 
   const updateUserSubmitHandler = (e) => {
     e.preventDefault();

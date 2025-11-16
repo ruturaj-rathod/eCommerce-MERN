@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Rating } from "@mui/material";
 import "./ProductCard.css";
 

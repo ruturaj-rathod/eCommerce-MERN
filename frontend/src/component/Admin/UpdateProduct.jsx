@@ -19,6 +19,7 @@ import {
 import { InputAdornment, MenuItem, TextField } from "@mui/material";
 import { TextareaAutosize } from "@mui/material";
 import "./Form.css";
+import { useNavigate, useParams } from "react-router";
 
 const categories = [
   "Laptop",
@@ -30,8 +31,10 @@ const categories = [
   "SmartPhones",
 ];
 
-const UpdateProduct = ({ history, match }) => {
+const UpdateProduct = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { id: productId } = useParams();
   const { loading, error, success } = useSelector((state) => state.newProduct);
   const { error: productDetailsError, product } = useSelector(
     (state) => state.productDetails
@@ -50,8 +53,6 @@ const UpdateProduct = ({ history, match }) => {
   const [images, setImages] = useState([]);
   const [oldImages, setOldImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
-
-  let productId = match.params.id;
 
   useEffect(() => {
     if (!product || product._id !== productId) {
@@ -79,13 +80,13 @@ const UpdateProduct = ({ history, match }) => {
 
     if (success) {
       toast.success("Product updated successfully");
-      history.push("/admin/products");
+      navigate("/admin/products");
       dispatch({ type: EDIT_PRODUCT_RESET });
     }
   }, [
     dispatch,
     error,
-    history,
+    navigate,
     success,
     productId,
     product,

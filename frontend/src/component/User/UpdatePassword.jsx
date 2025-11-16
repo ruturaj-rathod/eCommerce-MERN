@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import Loader from "../layout/Loader/Loader";
 import { Lock, LockOpen, VpnKey } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +16,8 @@ import {
 } from "@mui/material";
 import "./UserForm.css";
 
-const UpdatePassword = ({ history }) => {
+const UpdatePassword = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { error, isUpdated, loading } = useSelector((state) => state.profile);
@@ -41,11 +43,12 @@ const UpdatePassword = ({ history }) => {
 
     if (isUpdated) {
       toast.success("Profile updated successfully");
-      history.push("/account");
+      navigate("/account");
 
       dispatch({ type: UPDATE_PASSWORD_RESET });
     }
-  }, [dispatch, error, history, isUpdated]);
+  }, [dispatch, error, navigate, isUpdated]);
+
   return (
     <Fragment>
       {loading ? (

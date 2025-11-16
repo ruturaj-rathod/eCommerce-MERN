@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 import { CheckCircle } from '@mui/icons-material'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { removeAllItemsFromCart } from '../../actions/cartAction';
 import "./Success.css";
 

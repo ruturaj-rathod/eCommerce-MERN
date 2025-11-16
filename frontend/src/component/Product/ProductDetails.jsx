@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Carousel from "react-material-ui-carousel";
+import { useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import {
   clearErrors,
@@ -23,7 +24,8 @@ import { NEW_REVIEW_RESET } from "../../constants/productConstants";
 import "./ProductDetails.css";
 import ProductCard from "../Home/ProductCard";
 
-const ProductDetails = ({ match }) => {
+const ProductDetails = () => {
+  const params = useParams();
   const dispatch = useDispatch();
 
   const { product, products, loading, error } = useSelector(
@@ -91,7 +93,7 @@ const ProductDetails = ({ match }) => {
         return;
       }
     }
-    dispatch(addItemsToCart(match.params.id, quantity, options));
+    dispatch(addItemsToCart(params.id, quantity, options));
     toast.success("Item added to cart");
   };
 
@@ -103,7 +105,7 @@ const ProductDetails = ({ match }) => {
     const myForm = new FormData();
     myForm.set("rating", rating);
     myForm.set("comment", comment);
-    myForm.set("productId", match.params.id);
+    myForm.set("productId", params.id);
 
     dispatch(newReview(myForm));
     setOpen(false);
@@ -122,8 +124,8 @@ const ProductDetails = ({ match }) => {
       toast.success("Review submitted successfully");
       dispatch({ type: NEW_REVIEW_RESET });
     }
-    dispatch(getProductDetails(match.params.id));
-  }, [dispatch, match.params.id, error, reviewError, success]);
+    dispatch(getProductDetails(params.id));
+  }, [dispatch, params.id, error, reviewError, success]);
 
   const options = {
     value: product?.ratings,
