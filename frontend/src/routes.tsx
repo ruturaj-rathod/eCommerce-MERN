@@ -30,8 +30,9 @@ import UpdateUser from "@/component/Admin/UpdateUser";
 import UsersList from "@/component/Admin/UsersList";
 
 import AppLayout from "@/layout";
-import HomePage from "@/page/home";
 import CartPage from "@/page/cart";
+import HomePage from "@/page/home";
+import LoginPage from "@/page/login";
 import ShippingPage from "@/page/shipping";
 
 import { ROUTE_PATH } from "@/constants";
@@ -70,8 +71,12 @@ const router = createBrowserRouter([
         Component: ProductDetails,
       },
       {
-        path: ROUTE_PATH.LOGIN,
+        path: "old-login",
         Component: LoginSignUp,
+      },
+      {
+        path: ROUTE_PATH.LOGIN,
+        Component: LoginPage,
       },
       {
         path: ROUTE_PATH.ACCOUNT,

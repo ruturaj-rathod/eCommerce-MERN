@@ -3,6 +3,7 @@ const ROUTE_PATH = Object.freeze({
   PRODUCTS: "/products",
   PRODUCT_DETAILS: "/product/:id",
   LOGIN: "/login",
+  REGISTER: "/register",
   ACCOUNT: "/account",
   UPDATE_PROFILE: "/me/update",
   UPDATE_PASSWORD: "/password/update",
