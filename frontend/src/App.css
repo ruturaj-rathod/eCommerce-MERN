@@ -3,7 +3,7 @@
   scroll-behavior: smooth;
 }
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
   display: none;
 }
 
@@ -35,7 +35,6 @@ input::-webkit-outer-spin-button {
   background-color: rgba(0, 0, 0, 0.885);
 }
 
-
 input[type="number"] {
   -moz-appearance: textfield;
 }
@@ -49,12 +48,12 @@ input[type="number"] {
 }
 
 .button-outline {
-  border: 1px solid white;  
+  border: 1px solid white;
 }
 
 .button-outline:hover {
   background-color: white;
-  color: rgb(0, 0, 0);  
+  color: rgb(0, 0, 0);
 }
 
 .button-contain {
@@ -78,5 +77,5 @@ input[type="number"] {
 }
 
 .ff-lato {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }

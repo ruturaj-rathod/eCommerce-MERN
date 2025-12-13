@@ -7,6 +7,7 @@ import webFont from "webfontloader";
 import { loadUser } from "@/actions/userAction";
 import router from "@/routes";
 import store from "@/store";
+import AppProviders from "./providers";
 
 import "./App.css";
 
@@ -25,9 +26,9 @@ function App() {
   }, []);
 
   return (
-    <>
+    <AppProviders>
       <RouterProvider router={router} />
-    </>
+    </AppProviders>
   );
 }
 

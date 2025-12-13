@@ -8,7 +8,6 @@ import ForgotPassword from "@/component/User/ForgotPassword";
 import Home from "@/component/Home/Home";
 import LoginSignUp from "@/component/User/LoginSignUp";
 import MyOrders from "@/component/Order/MyOrders";
-import Navbar from "@/component/layout/Header/Navbar";
 import NewProduct from "@/component/Admin/NewProduct";
 import OrderDetails from "@/component/Order/OrderDetails";
 import OrderList from "@/component/Admin/OrderList";
@@ -21,7 +20,6 @@ import Products from "@/component/Product/Products";
 import Profile from "@/component/User/Profile";
 import ProtectedRoute from "@/component/Route/ProtectedRoute";
 import ResetPassword from "@/component/User/ResetPassword";
-import Shipping from "@/component/Cart/Shipping";
 import ShippingConfirm from "@/component/Cart/ShippingConfirm";
 import StripeElements from "@/component/Cart/StripeElements";
 import Success from "@/component/Cart/Success";
@@ -31,16 +29,37 @@ import UpdateProduct from "@/component/Admin/UpdateProduct";
 import UpdateUser from "@/component/Admin/UpdateUser";
 import UsersList from "@/component/Admin/UsersList";
 
+import AppLayout from "@/layout";
+import HomePage from "@/page/home";
+import CartPage from "@/page/cart";
+import ShippingPage from "@/page/shipping";
+
 import { ROUTE_PATH } from "@/constants";
 
 const router = createBrowserRouter([
   {
     path: ROUTE_PATH.HOME,
-    Component: Navbar,
+    Component: AppLayout,
     children: [
       {
         index: true,
+        Component: HomePage,
+      },
+      {
+        path: "old-home",
         Component: Home,
+      },
+      {
+        path: "old-cart",
+        Component: Cart,
+      },
+      {
+        path: "old-shipping",
+        element: (
+          <ProtectedRoute isAdmin={false}>
+            <ShippingPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: ROUTE_PATH.PRODUCTS,
@@ -76,7 +95,7 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTE_PATH.CART,
-        Component: Cart,
+        Component: CartPage,
       },
       {
         path: ROUTE_PATH.ABOUT,
@@ -90,7 +109,7 @@ const router = createBrowserRouter([
         path: ROUTE_PATH.SIPPING,
         element: (
           <ProtectedRoute isAdmin={false}>
-            <Shipping />
+            <ShippingPage />
           </ProtectedRoute>
         ),
       },

@@ -6,7 +6,7 @@ import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemsToCart, removeItemsFromCart } from "../../actions/cartAction";
 import "./Cart.css";
-import NoCartItem from "./NoCartItem";
+import NoCartItem from "../../page/cart/NoCartItem";
 
 const Cart = () => {
   const navigate = useNavigate();

@@ -71,7 +71,7 @@ function Navbar() {
         )}
         {/* Icon of Right Side */}
         <div className="d-flex me-2 me-sx-0">
-          <Link to="/cart" className="nav-link">
+          <Link to="/old-cart" className="nav-link">
             <ShoppingCart fontSize="small" />
             {cartItems?.length > 0 ? (
               <span class="badge rounded-pill bg-secondary">
@@ -86,7 +86,6 @@ function Navbar() {
           </Link>
         </div>
       </div>
-      <Outlet />
       {isAuthenticated && <UserOptions user={user} />}
       <Footer />
     </>
